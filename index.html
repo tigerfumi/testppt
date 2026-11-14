@@ -1,1175 +1,600 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
+<!doctype html>
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>歡樂草原！4x4 打地鼠大冒險</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: 圓潤活潑字體 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>時光留聲機</title>
+<meta name="description" content="家屬陪伴長輩說故事、錄下生命故事的留聲機。資料只存在這台裝置。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6EEDF; --paper2:#EFE2CB; --card:#FFFBF3; --ink:#3B2A1E; --ink2:#6B5644;
+  --brown:#7A4B2A; --brown2:#5A341B; --brass:#C99A3E; --brass2:#E7C27A; --red:#A8432F; --green:#4E7A4A;
+  --line:#DCCBAE; --shadow:0 6px 20px rgba(74,45,20,.13);
+  --serif:"Noto Serif TC",serif; --sans:"Noto Sans TC",-apple-system,"PingFang TC",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:20px;line-height:1.6;
+  background-image:radial-gradient(rgba(122,75,42,.05) 1px,transparent 1px);background-size:6px 6px;min-height:100vh}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:860px;margin:0 auto;padding:16px 16px calc(40px + env(safe-area-inset-bottom))}
+header.top{display:flex;align-items:center;gap:12px;padding:6px 0 14px}
+header.top h1{font-family:var(--serif);font-size:26px;margin:0;color:var(--brown2);letter-spacing:2px;flex:1}
+header.top h1 small{display:block;font-family:var(--sans);font-size:14px;color:var(--ink2);letter-spacing:0;font-weight:400}
+.iconbtn{background:none;border:1.5px solid var(--line);border-radius:12px;padding:8px 14px;font-size:17px;color:var(--brown)}
+.iconbtn:hover{background:var(--paper2)}
+section[data-view]{display:none}
+section[data-view].on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2{font-family:var(--serif);color:var(--brown2);font-size:26px;margin:4px 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:16px;padding:14px 24px;
+  font-size:21px;font-weight:700;background:var(--brown);color:#FFF6E6;min-height:60px;box-shadow:0 3px 0 var(--brown2)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--brown2)}
+.btn.brass{background:var(--brass);color:#3B2A1E;box-shadow:0 3px 0 #9C7427}
+.btn.ghost{background:transparent;color:var(--brown);border:2px solid var(--brown);box-shadow:none}
+.btn.red{background:var(--red);box-shadow:0 3px 0 #7C2E1F}
+.btn.block{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>.btn{flex:1 1 200px}
+.muted{color:var(--ink2);font-size:17px}
+label.f{display:block;font-weight:700;margin:14px 0 6px;font-size:18px}
+input.t,textarea.t,select.t{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff;font-size:20px}
+textarea.t{min-height:120px;resize:vertical;line-height:1.7}
+input.t:focus,textarea.t:focus{outline:3px solid var(--brass2);border-color:var(--brass)}
 
-    <style>
-        * {
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            box-sizing: border-box;
-        }
+/* 留聲機 */
+.stage{display:flex;flex-direction:column;align-items:center;text-align:center;padding:6px 0 4px}
+.phono{width:min(330px,82vw);height:auto;display:block}
+#disc,.disc{transform-origin:150px 205px;transform-box:view-box}
+body.spinning #disc{animation:spin 1.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#arm{transform-origin:258px 168px;transform-box:view-box;transition:transform .6s ease;transform:rotate(-18deg)}
+body.spinning #arm{transform:rotate(0)}
+.hello{font-family:var(--serif);font-size:24px;color:var(--brown2);margin:8px 0 2px}
 
-        body {
-            font-family: 'Zen Maru Gothic', 'Fredoka One', cursive, sans-serif;
-            background: linear-gradient(180deg, #7ad8ff 0%, #bcf279 55%, #66b532 100%);
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+/* 主題 */
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.cat{border:none;border-radius:16px;padding:16px;text-align:left;background:var(--card);border:1.5px solid var(--line);box-shadow:var(--shadow);min-height:96px}
+.cat b{display:block;font-family:var(--serif);font-size:22px;color:var(--brown2)}
+.cat span{font-size:15px;color:var(--ink2)}
+.cat i{font-style:normal;font-size:30px;float:right;line-height:1}
+.cat.on{border-color:var(--brass);background:#FFF4DB}
+.qs{display:grid;gap:10px;margin-top:14px}
+.q{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:14px 16px;text-align:left;font-size:21px;display:flex;gap:10px;align-items:center}
+.q:hover{border-color:var(--brass);background:#FFF8EA}
+.q .done{margin-left:auto;font-size:14px;color:var(--green);white-space:nowrap}
 
-        /* 活潑雲朵飄動動畫 */
-        @keyframes cloudFloat {
-            0% { transform: translateX(-150px); }
-            100% { transform: translateX(calc(100vw + 150px)); }
-        }
+/* 錄音 */
+.qbig{font-family:var(--serif);font-size:clamp(26px,5.2vw,36px);line-height:1.45;color:var(--brown2);margin:8px 0 6px;text-align:center}
+.timer{font-variant-numeric:tabular-nums;font-size:34px;font-weight:700;color:var(--brown);text-align:center}
+.rec-dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--red);margin-right:8px;vertical-align:middle;opacity:0}
+body.recording:not(.paused) .rec-dot{opacity:1;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
+.meter{height:12px;border-radius:9px;background:var(--paper2);overflow:hidden;margin:10px auto 0;max-width:420px}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--brass));transition:width .08s}
+.bigrec{width:132px;height:132px;border-radius:50%;border:6px solid #fff;background:var(--red);color:#fff;font-size:22px;font-weight:700;
+  box-shadow:0 0 0 3px var(--red),0 8px 22px rgba(168,67,47,.35);display:flex;align-items:center;justify-content:center;flex-direction:column;margin:14px auto}
+.bigrec svg{width:38px;height:38px}
+.tips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;font-size:18px}
+.chip.hit{background:var(--brass2);border-color:var(--brass)}
+details.guide summary{cursor:pointer;font-weight:700;color:var(--brown);font-size:18px}
+details.guide ul{margin:8px 0 0;padding-left:22px;font-size:18px}
+.live{min-height:60px;border:1.5px dashed var(--line);border-radius:12px;padding:10px 14px;font-size:19px;background:#fff;color:var(--ink)}
+.live .interim{color:#A79580}
+.switch{display:flex;align-items:center;gap:10px;font-size:17px;color:var(--ink2);margin-top:10px}
+.switch input{width:24px;height:24px;accent-color:var(--brown)}
 
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 9999px;
-            filter: drop-shadow(0 8px 6px rgba(0,0,0,0.06));
-            z-index: 1;
-            pointer-events: none;
-        }
+/* 唱片櫃 */
+.shelf{display:grid;gap:12px}
+.rec{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.vinyl{flex:0 0 66px;width:66px;height:66px;border-radius:50%;background:radial-gradient(circle,var(--lab,#C99A3E) 0 30%,#1b1410 31% 34%,#2b211b 35% 100%);
+  box-shadow:inset 0 0 0 2px #000,0 2px 6px rgba(0,0,0,.3);position:relative;overflow:hidden}
+.vinyl::after{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 3px,rgba(255,255,255,.05) 3px 4px)}
+.vinyl.ph{background-size:cover;background-position:center}
+.rec.playing .vinyl{animation:spin 1.8s linear infinite}
+.rec .meta{flex:1;min-width:0}
+.rec .meta b{display:block;font-size:20px;font-family:var(--serif);color:var(--brown2);overflow:hidden;text-overflow:ellipsis}
+.rec .meta span{font-size:15px;color:var(--ink2)}
+.rec .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.sm{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:8px 12px;font-size:17px;min-height:46px}
+.sm.play{background:var(--brown);color:#fff;border-color:var(--brown);min-width:64px}
+.empty{text-align:center;padding:30px 10px;color:var(--ink2)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.filters .chip.on{background:var(--brown);color:#fff;border-color:var(--brown)}
+.photo-prev{max-width:180px;border-radius:12px;display:block;margin-top:8px;border:1px solid var(--line)}
+.stat{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:6px 0 4px}
+.stat div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 16px;font-size:16px;color:var(--ink2)}
+.stat b{font-size:24px;color:var(--brown2);font-family:var(--serif);margin-right:4px}
 
-        .cloud-1 {
-            width: 130px; height: 45px; top: 25px;
-            animation: cloudFloat 28s linear infinite;
-        }
-        .cloud-2 {
-            width: 90px; height: 32px; top: 80px;
-            animation: cloudFloat 38s linear infinite 10s;
-        }
+/* 對話框 */
+.modal{position:fixed;inset:0;background:rgba(40,25,12,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.on{display:flex}
+.modal .card{max-width:520px;width:100%;max-height:90vh;overflow:auto;margin:0}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(120px);background:var(--brown2);color:#fff;
+  padding:12px 22px;border-radius:14px;font-size:18px;transition:transform .3s;z-index:60;max-width:90vw;text-align:center}
+.toast.on{transform:translateX(-50%) translateY(0)}
 
-        /* 自訂木槌游標 (電腦端) */
-        @media (hover: hover) and (pointer: fine) {
-            .game-field {
-                cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g transform="rotate(25 24 24)"><rect x="21" y="16" width="6" height="28" rx="3" fill="%23b45309" stroke="%2378350f" stroke-width="2"/><rect x="8" y="6" width="32" height="15" rx="5" fill="%23ef4444" stroke="%23991b1b" stroke-width="2.5"/><rect x="11" y="9" width="6" height="9" rx="2" fill="%23fca5a5"/></g></svg>') 12 12, auto;
-            }
-        }
-
-        /* 洞穴與遮罩結構 */
-        .hole-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 100%; /* 1:1 正方形比例 */
-        }
-
-        .hole-container {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            border-radius: 50% / 35%;
-        }
-
-        /* 泥土洞穴邊緣立體感 */
-        .dirt-mound {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: radial-gradient(ellipse at 50% 65%, #3e2211 0%, #683b17 50%, #9a5b23 85%);
-            box-shadow: inset 0 10px 14px rgba(0, 0, 0, 0.7), 0 8px 12px rgba(35, 78, 15, 0.35);
-            border: 4px solid #4a270d;
-        }
-
-        /* 地鼠本體與彈出動畫 */
-        .mole-actor {
-            position: absolute;
-            left: 50%;
-            bottom: -110%;
-            transform: translateX(-50%);
-            width: 86%;
-            height: 95%;
-            transition: bottom 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .mole-actor.up {
-            bottom: -5%;
-            pointer-events: auto;
-            cursor: pointer;
-        }
-
-        .mole-actor.hit {
-            transition: transform 0.12s ease-out;
-            transform: translateX(-50%) scale(0.85) rotate(-8deg);
-        }
-
-        /* 敲擊跳出金幣或數字動效 */
-        @keyframes floatUpFade {
-            0% { opacity: 0; transform: translateY(0) scale(0.6); }
-            30% { opacity: 1; transform: translateY(-25px) scale(1.3); }
-            100% { opacity: 0; transform: translateY(-55px) scale(1); }
-        }
-
-        .floating-score {
-            position: absolute;
-            animation: floatUpFade 0.8s ease-out forwards;
-            font-weight: 900;
-            pointer-events: none;
-            z-index: 30;
-            text-shadow: 0 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        }
-
-        /* 敲擊槌子撞擊動效 */
-        @keyframes hammerSmash {
-            0% { transform: scale(1.3) rotate(-25deg); opacity: 1; }
-            45% { transform: scale(0.9) rotate(20deg); opacity: 1; }
-            100% { transform: scale(0.7) rotate(0deg); opacity: 0; }
-        }
-
-        .hammer-fx {
-            position: absolute;
-            width: 75px;
-            height: 75px;
-            pointer-events: none;
-            z-index: 40;
-            transform-origin: bottom right;
-            animation: hammerSmash 0.28s ease-out forwards;
-        }
-
-        /* 星星四散特效 */
-        @keyframes starBurst {
-            0% { transform: translate(0, 0) scale(0.2) rotate(0deg); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(200deg); opacity: 0; }
-        }
-
-        .star-particle {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            pointer-events: none;
-            z-index: 35;
-            animation: starBurst 0.5s ease-out forwards;
-        }
-
-        /* 草叢裝飾 */
-        .grass-tuft {
-            position: absolute;
-            bottom: -6px;
-            width: 100%;
-            height: 26px;
-            background-repeat: repeat-x;
-            pointer-events: none;
-            z-index: 8;
-        }
-
-        /* 3D 按鈕立體效果 */
-        .btn-3d {
-            transition: all 0.1s ease;
-            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.25);
-        }
-        .btn-3d:active:not(:disabled) {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
-        }
-    </style>
+/* 故事書（列印） */
+#book{display:none}
+@media print{
+  body{background:#fff;font-size:13pt}
+  .wrap,.modal,.toast,[data-oth-report]{display:none!important}
+  #book{display:block;font-family:var(--serif);color:#222}
+  #book h1{text-align:center;font-size:28pt;margin:40pt 0 6pt}
+  #book .sub{text-align:center;color:#666;margin-bottom:30pt}
+  #book article{page-break-inside:avoid;border-top:1px solid #ccc;padding:14pt 0}
+  #book h3{font-size:16pt;margin:0 0 4pt}
+  #book .m{color:#777;font-size:10pt;font-family:var(--sans)}
+  #book img{max-width:60%;max-height:220pt;margin:8pt 0;border-radius:6pt}
+  #book p{white-space:pre-wrap;line-height:1.8}
+}
+@media (max-width:560px){
+  body{font-size:19px}
+  .rec{flex-wrap:wrap}
+  .rec .acts{width:100%;justify-content:flex-start}
+  .btn{font-size:20px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
-<body class="flex flex-col items-center justify-start p-2 sm:p-4 min-h-screen text-slate-800">
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>時光留聲機<small>陪長輩說故事，把聲音留下來</small></h1>
+    <button class="iconbtn" data-go="home" aria-label="回首頁">首頁</button>
+  </header>
 
-    <!-- 背景動態白雲 -->
-    <div class="cloud cloud-1"></div>
-    <div class="cloud cloud-2"></div>
-
-    <!-- 主遊戲容器 -->
-    <div class="w-full max-w-xl mx-auto flex flex-col items-center z-10">
-
-        <!-- 標題與音效控制列 -->
-        <header class="w-full flex justify-between items-center mb-2 px-2">
-            <div class="flex items-center gap-2">
-                <span class="text-3xl sm:text-4xl filter drop-shadow">🐾</span>
-                <h1 class="text-2xl sm:text-3xl font-black text-amber-900 tracking-wider drop-shadow-md">
-                    歡樂 4×4 打地鼠
-                </h1>
-            </div>
-            
-            <button id="soundToggleBtn" class="bg-amber-100 hover:bg-amber-200 border-2 border-amber-800 text-amber-900 px-3 py-1.5 rounded-full text-sm font-bold flex items-center gap-1.5 shadow transition">
-                <span id="soundIcon" class="text-base">🔊</span>
-                <span id="soundText" class="hidden sm:inline">音效開</span>
-            </button>
-        </header>
-
-        <!-- 設定儀表板 (時間、難度) -->
-        <div class="w-full bg-white/85 backdrop-blur-md rounded-2xl p-3 sm:p-4 shadow-lg border-2 border-green-600/30 mb-3">
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs sm:text-sm font-bold">
-                <!-- 時間選單 -->
-                <div class="flex flex-col">
-                    <label class="text-slate-600 mb-1 flex items-center gap-1">⏱️ 遊戲時間</label>
-                    <select id="timeSelect" class="bg-emerald-50 border-2 border-emerald-400 rounded-xl p-1.5 text-emerald-900 font-extrabold focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                        <option value="60">60 秒 (標準)</option>
-                        <option value="90">90 秒 (暢快)</option>
-                        <option value="120">120 秒 (馬拉松)</option>
-                    </select>
-                </div>
-
-                <!-- 難易度選擇 -->
-                <div class="flex flex-col">
-                    <label class="text-slate-600 mb-1 flex items-center gap-1">⚡ 挑戰難度</label>
-                    <select id="diffSelect" class="bg-amber-50 border-2 border-amber-400 rounded-xl p-1.5 text-amber-900 font-extrabold focus:outline-none focus:ring-2 focus:ring-amber-500">
-                        <option value="easy">輕鬆模式 (慢速)</option>
-                        <option value="normal" selected>普通模式 (標準)</option>
-                        <option value="hard">狂暴地獄 (極速+炸彈)</option>
-                    </select>
-                </div>
-
-                <!-- 歷史最高紀錄 -->
-                <div class="flex flex-col justify-center items-center bg-orange-100/80 rounded-xl p-1.5 border border-orange-300">
-                    <span class="text-orange-700 text-[11px] font-semibold">🏆 歷史最高分</span>
-                    <span id="bestScoreText" class="text-base sm:text-lg font-black text-orange-900">0</span>
-                </div>
-
-                <!-- 命中率 -->
-                <div class="flex flex-col justify-center items-center bg-sky-100/80 rounded-xl p-1.5 border border-sky-300">
-                    <span class="text-sky-700 text-[11px] font-semibold">🎯 揮擊命中率</span>
-                    <span id="accuracyText" class="text-base sm:text-lg font-black text-sky-900">100%</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 即時狀態看板 (分數、倒數、連擊) -->
-        <div class="w-full flex items-center justify-between gap-2 mb-3">
-            <!-- 當前分數 -->
-            <div class="flex-1 bg-gradient-to-r from-amber-400 to-yellow-300 rounded-2xl py-2 px-3 text-center border-b-4 border-amber-600 shadow-md">
-                <div class="text-[11px] font-black text-amber-900 uppercase tracking-wider">SCORE 分數</div>
-                <div id="currentScore" class="text-2xl sm:text-3xl font-black text-amber-950">0</div>
-            </div>
-
-            <!-- 倒數時間 -->
-            <div class="flex-1 bg-gradient-to-r from-rose-500 to-pink-500 rounded-2xl py-2 px-3 text-center border-b-4 border-rose-700 shadow-md text-white">
-                <div class="text-[11px] font-black text-rose-100 uppercase tracking-wider">TIME 剩餘</div>
-                <div id="timeLeftDisplay" class="text-2xl sm:text-3xl font-black tracking-tight">60s</div>
-            </div>
-
-            <!-- 連擊 Combo -->
-            <div class="flex-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl py-2 px-3 text-center border-b-4 border-purple-800 shadow-md text-white">
-                <div class="text-[11px] font-black text-purple-200 uppercase tracking-wider">COMBO 連擊</div>
-                <div id="comboDisplay" class="text-2xl sm:text-3xl font-black text-yellow-300 animate-pulse">0</div>
-            </div>
-        </div>
-
-        <!-- 4x4 遊戲地圖主網格 -->
-        <div class="w-full bg-gradient-to-b from-[#5fb628] to-[#448b17] p-3 sm:p-4 rounded-3xl shadow-2xl border-4 border-[#336811] relative game-field">
-            <!-- 草地裝飾小花小草 -->
-            <div class="absolute top-2 left-4 text-xs select-none opacity-80">🌼</div>
-            <div class="absolute top-2 right-4 text-xs select-none opacity-80">🌸</div>
-            <div class="absolute bottom-2 left-6 text-xs select-none opacity-80">🍀</div>
-            <div class="absolute bottom-2 right-6 text-xs select-none opacity-80">🌼</div>
-
-            <!-- 16個洞 (4x4) -->
-            <div id="gridBoard" class="grid grid-cols-4 gap-2 sm:gap-3.5 relative z-10">
-                <!-- Javascript 動態生成 16 個洞穴 -->
-            </div>
-        </div>
-
-        <!-- 下方控制按鈕區 -->
-        <div class="w-full flex items-center justify-center gap-3 mt-4">
-            <button id="startBtn" class="btn-3d flex-1 py-3 px-6 bg-gradient-to-b from-green-400 to-green-600 text-white rounded-2xl font-black text-lg sm:text-xl border-b-4 border-green-800 tracking-wider flex items-center justify-center gap-2">
-                <span>▶️</span> 開始遊戲
-            </button>
-            <button id="pauseBtn" disabled class="btn-3d py-3 px-5 bg-gradient-to-b from-amber-400 to-amber-600 text-white rounded-2xl font-black text-lg border-b-4 border-amber-800 disabled:opacity-40 disabled:cursor-not-allowed">
-                ⏸️ 暫停
-            </button>
-            <button id="resetBtn" class="btn-3d py-3 px-5 bg-gradient-to-b from-slate-400 to-slate-600 text-white rounded-2xl font-black text-lg border-b-4 border-slate-800">
-                🔄 重置
-            </button>
-        </div>
-
-        <!-- 角色介紹小提示 -->
-        <div class="w-full mt-4 flex items-center justify-around bg-black/20 backdrop-blur-sm rounded-xl py-2 px-3 text-xs font-bold text-white shadow-inner">
-            <span class="flex items-center gap-1">🐹 普通 (+100)</span>
-            <span class="flex items-center gap-1">👑 金鼠 (+300)</span>
-            <span class="flex items-center gap-1">💣 炸彈 (-200 / 斷Combo)</span>
-        </div>
+  <!-- 首頁 -->
+  <section data-view="home" class="on">
+    <div class="stage">
+      <svg class="phono" viewBox="0 0 300 300" aria-hidden="true">
+        <defs>
+          <linearGradient id="brass" x1="0" x2="1"><stop offset="0" stop-color="#9C7427"/><stop offset=".45" stop-color="#E7C27A"/><stop offset="1" stop-color="#B0842F"/></linearGradient>
+          <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8A5530"/><stop offset="1" stop-color="#5A341B"/></linearGradient>
+          <radialGradient id="hornIn" cx=".3" cy=".5" r=".7"><stop offset="0" stop-color="#5A3A12"/><stop offset="1" stop-color="#C99A3E"/></radialGradient>
+        </defs>
+        <!-- 喇叭 -->
+        <path d="M150 150 C150 110 120 80 70 40 L40 18 C20 50 25 110 60 130 C90 145 120 150 150 160 Z" fill="url(#brass)"/>
+        <ellipse cx="45" cy="72" rx="22" ry="56" transform="rotate(28 45 72)" fill="url(#hornIn)"/>
+        <rect x="143" y="148" width="14" height="40" rx="5" fill="#9C7427"/>
+        <!-- 木箱 -->
+        <rect x="40" y="225" width="220" height="56" rx="8" fill="url(#wood)"/>
+        <rect x="52" y="238" width="196" height="30" rx="5" fill="none" stroke="#C99A3E" stroke-width="1.5" opacity=".6"/>
+        <!-- 唱盤 -->
+        <ellipse cx="150" cy="226" rx="112" ry="10" fill="#3B2412"/>
+        <g id="disc">
+          <circle cx="150" cy="205" r="80" fill="#1d1612"/>
+          <circle cx="150" cy="205" r="68" fill="none" stroke="#3a2e26" stroke-width="1"/>
+          <circle cx="150" cy="205" r="56" fill="none" stroke="#3a2e26" stroke-width="1"/>
+          <circle cx="150" cy="205" r="44" fill="none" stroke="#3a2e26" stroke-width="1"/>
+          <circle cx="150" cy="205" r="26" fill="#A8432F"/>
+          <path d="M134 199 h32" stroke="#F6EEDF" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M140 211 h20" stroke="#F6EEDF" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+          <circle cx="150" cy="205" r="3.5" fill="#E7C27A"/>
+          <path d="M95 175 A70 70 0 0 1 130 145" stroke="rgba(255,255,255,.18)" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- 唱臂 -->
+        <g id="arm">
+          <circle cx="258" cy="168" r="9" fill="url(#brass)"/>
+          <path d="M258 168 L232 232 L200 238" stroke="url(#brass)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="190" y="232" width="16" height="10" rx="2" fill="#9C7427"/>
+        </g>
+      </svg>
+      <div class="hello" id="hello">歡迎來到時光留聲機</div>
+      <div class="stat" id="stat"></div>
     </div>
-
-    <!-- 結算彈窗 Modal -->
-    <div id="resultModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-gradient-to-b from-amber-50 to-orange-100 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center border-4 border-amber-500 shadow-2xl transform transition-all scale-95">
-            <div id="modalEmoji" class="text-5xl sm:text-6xl mb-2 animate-bounce">🎉</div>
-            <h2 id="modalTitle" class="text-2xl sm:text-3xl font-black text-amber-950 mb-1">時間到！遊戲結束</h2>
-            <p id="modalSub" class="text-sm text-amber-800 mb-4">做得好！看看你的戰果：</p>
-
-            <div class="bg-white/80 rounded-2xl p-4 mb-5 border-2 border-amber-300 space-y-2 text-sm font-bold text-slate-700">
-                <div class="flex justify-between border-b pb-1.5">
-                    <span>最終得分：</span>
-                    <span id="finalScore" class="text-xl font-black text-amber-600">0</span>
-                </div>
-                <div class="flex justify-between border-b pb-1.5">
-                    <span>最高連擊 (Max Combo)：</span>
-                    <span id="finalMaxCombo" class="text-indigo-600 font-extrabold">0 連擊</span>
-                </div>
-                <div class="flex justify-between border-b pb-1.5">
-                    <span>揮擊總次數 / 命中：</span>
-                    <span id="finalHitsInfo" class="text-slate-800">0 / 0</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>揮擊命中率：</span>
-                    <span id="finalAccuracy" class="text-emerald-600 font-extrabold">0%</span>
-                </div>
-            </div>
-
-            <button id="modalPlayAgainBtn" class="btn-3d w-full py-3 bg-gradient-to-b from-green-500 to-green-600 text-white rounded-2xl font-black text-lg border-b-4 border-green-800 tracking-wider">
-                再玩一次 🚀
-            </button>
-        </div>
+    <div class="card">
+      <div class="row">
+        <button class="btn" data-go="topics">開始聊天</button>
+        <button class="btn brass" data-go="shelf">打開唱片櫃</button>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn ghost" id="randomBtn">隨機抽一個話題</button>
+      </div>
     </div>
-
-    <!-- 簡易消息 Toast -->
-    <div id="toast" class="fixed top-5 bg-amber-900 text-white font-bold px-4 py-2 rounded-full shadow-lg transition-all duration-300 opacity-0 pointer-events-none transform -translate-y-4 z-50 text-sm">
-        提示訊息
+    <div class="card">
+      <h2 style="font-size:22px">今天陪誰說故事？</h2>
+      <label class="f" for="elderName">長輩稱呼</label>
+      <input class="t" id="elderName" placeholder="例如：阿嬤、外公、王伯伯">
+      <label class="f" for="elderYear">出生年（可不填）</label>
+      <input class="t" id="elderYear" inputmode="numeric" placeholder="例如：1945">
+      <p class="muted" style="margin:10px 0 0">所有錄音只存在這台手機或電腦，不會上傳。換裝置前請到唱片櫃「備份」。</p>
     </div>
-
-    <!-- 程式邏輯主腳本 -->
-    <script>
-        /* ==============================================================
-           1. Web Audio API 音效合成引擎 (免加載外源聲音檔)
-           ============================================================== */
-        class SoundEngine {
-            constructor() {
-                this.ctx = null;
-                this.muted = false;
-            }
-
-            init() {
-                if (!this.ctx) {
-                    const AudioContext = window.AudioContext || window.webkitAudioContext;
-                    this.ctx = new AudioContext();
-                }
-                if (this.ctx.state === 'suspended') {
-                    this.ctx.resume();
-                }
-            }
-
-            // 地鼠冒出聲 (軟萌 Pop 泡泡聲)
-            playPop() {
-                if (this.muted) return;
-                this.init();
-                const now = this.ctx.currentTime;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(320, now);
-                osc.frequency.exponentialRampToValueAtTime(750, now + 0.08);
-
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start(now);
-                osc.stop(now + 0.08);
-            }
-
-            // 成功敲擊普通地鼠 (清脆打擊 + 得分高音)
-            playHit() {
-                if (this.muted) return;
-                this.init();
-                const now = this.ctx.currentTime;
-                
-                // 1. 打擊低頻震盪 (咚)
-                const oscPunch = this.ctx.createOscillator();
-                const gainPunch = this.ctx.createGain();
-                oscPunch.type = 'triangle';
-                oscPunch.frequency.setValueAtTime(260, now);
-                oscPunch.frequency.exponentialRampToValueAtTime(60, now + 0.12);
-
-                gainPunch.gain.setValueAtTime(0.4, now);
-                gainPunch.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
-
-                oscPunch.connect(gainPunch);
-                gainPunch.connect(this.ctx.destination);
-                oscPunch.start(now);
-                oscPunch.stop(now + 0.12);
-
-                // 2. 得分清脆音 (叮)
-                const oscDing = this.ctx.createOscillator();
-                const gainDing = this.ctx.createGain();
-                oscDing.type = 'sine';
-                oscDing.frequency.setValueAtTime(880, now + 0.02);
-                oscDing.frequency.exponentialRampToValueAtTime(1320, now + 0.18);
-
-                gainDing.gain.setValueAtTime(0.25, now + 0.02);
-                gainDing.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
-
-                oscDing.connect(gainDing);
-                gainDing.connect(this.ctx.destination);
-                oscDing.start(now + 0.02);
-                oscDing.stop(now + 0.2);
-            }
-
-            // 金鼠獎勵敲擊 (雙音歡樂鈴聲)
-            playGold() {
-                if (this.muted) return;
-                this.init();
-                const now = this.ctx.currentTime;
-                const freqs = [1046.5, 1318.5, 1567.98, 2093.0]; // C6, E6, G6, C7
-                
-                freqs.forEach((freq, idx) => {
-                    const osc = this.ctx.createOscillator();
-                    const gain = this.ctx.createGain();
-                    const startTime = now + idx * 0.05;
-
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(freq, startTime);
-
-                    gain.gain.setValueAtTime(0.25, startTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.22);
-
-                    osc.connect(gain);
-                    gain.connect(this.ctx.destination);
-                    osc.start(startTime);
-                    osc.stop(startTime + 0.22);
-                });
-            }
-
-            // 敲中炸彈 (低沉爆炸與失誤警報音)
-            playBomb() {
-                if (this.muted) return;
-                this.init();
-                const now = this.ctx.currentTime;
-                
-                // 低頻雜訊爆炸模擬
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(180, now);
-                osc.frequency.exponentialRampToValueAtTime(30, now + 0.35);
-
-                gain.gain.setValueAtTime(0.45, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start(now);
-                osc.stop(now + 0.35);
-            }
-
-            // 揮棒落空聲 (呼的風聲感)
-            playMiss() {
-                if (this.muted) return;
-                this.init();
-                const now = this.ctx.currentTime;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(380, now);
-                osc.frequency.exponentialRampToValueAtTime(160, now + 0.07);
-
-                gain.gain.setValueAtTime(0.12, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
-
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start(now);
-                osc.stop(now + 0.07);
-            }
-
-            // 遊戲通關歡呼琶音
-            playWin() {
-                if (this.muted) return;
-                this.init();
-                const now = this.ctx.currentTime;
-                const chord = [523.25, 659.25, 783.99, 1046.5]; // C E G C
-                chord.forEach((freq, idx) => {
-                    const osc = this.ctx.createOscillator();
-                    const gain = this.ctx.createGain();
-                    const t = now + idx * 0.12;
-
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(freq, t);
-
-                    gain.gain.setValueAtTime(0.3, t);
-                    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
-
-                    osc.connect(gain);
-                    gain.connect(this.ctx.destination);
-                    osc.start(t);
-                    osc.stop(t + 0.45);
-                });
-            }
-        }
-
-        const sound = new SoundEngine();
-
-        /* ==============================================================
-           2. SVG 向量角色立繪模版 (原生SVG無外部圖床，保證不破圖)
-           ============================================================== */
-        // 普通棕色可愛小地鼠
-        const NORMAL_MOLE_SVG = `
-        <svg viewBox="0 0 100 115" class="w-full h-full drop-shadow-md">
-            <!-- 身體圓拱 -->
-            <path d="M15 115 C15 45, 85 45, 85 115 Z" fill="#925828" stroke="#5c3413" stroke-width="4"/>
-            <path d="M25 115 C25 65, 75 65, 75 115 Z" fill="#d79b65" opacity="0.6"/>
-            <!-- 圓圓耳朵 -->
-            <circle cx="22" cy="52" r="13" fill="#925828" stroke="#5c3413" stroke-width="3"/>
-            <circle cx="22" cy="52" r="7" fill="#fca5a5"/>
-            <circle cx="78" cy="52" r="13" fill="#925828" stroke="#5c3413" stroke-width="3"/>
-            <circle cx="78" cy="52" r="7" fill="#fca5a5"/>
-            <!-- 大眼睛 -->
-            <ellipse cx="38" cy="65" rx="5.5" ry="7" fill="#1e293b"/>
-            <circle cx="36" cy="63" r="2.5" fill="#ffffff"/>
-            <ellipse cx="62" cy="65" rx="5.5" ry="7" fill="#1e293b"/>
-            <circle cx="60" cy="63" r="2.5" fill="#ffffff"/>
-            <!-- 粉紅害羞腮紅 -->
-            <ellipse cx="28" cy="76" rx="6" ry="4" fill="#f87171" opacity="0.65"/>
-            <ellipse cx="72" cy="76" rx="6" ry="4" fill="#f87171" opacity="0.65"/>
-            <!-- 鼻子 -->
-            <ellipse cx="50" cy="72" rx="7" ry="5" fill="#311706"/>
-            <!-- 齙牙與嘴巴 -->
-            <rect x="46.5" y="77" width="7" height="6" rx="1.5" fill="#ffffff" stroke="#5c3413" stroke-width="1.5"/>
-            <path d="M44 76 Q50 82 56 76" fill="none" stroke="#311706" stroke-width="2.5" stroke-linecap="round"/>
-            <!-- 可愛爪子 -->
-            <ellipse cx="28" cy="108" rx="8" ry="5" fill="#d79b65" stroke="#5c3413" stroke-width="2"/>
-            <ellipse cx="72" cy="108" rx="8" ry="5" fill="#d79b65" stroke="#5c3413" stroke-width="2"/>
-        </svg>
-        `;
-
-        // 戴皇冠黃金獎勵地鼠 (+300 分)
-        const GOLD_MOLE_SVG = `
-        <svg viewBox="0 0 100 115" class="w-full h-full drop-shadow-lg filter drop-shadow(0 0 8px rgba(234,179,8,0.7))">
-            <!-- 閃亮黃金身體 -->
-            <path d="M15 115 C15 45, 85 45, 85 115 Z" fill="#eab308" stroke="#a16207" stroke-width="4"/>
-            <path d="M25 115 C25 65, 75 65, 75 115 Z" fill="#fde047" opacity="0.85"/>
-            <!-- 耳朵 -->
-            <circle cx="22" cy="52" r="13" fill="#ca8a04" stroke="#854d0e" stroke-width="3"/>
-            <circle cx="22" cy="52" r="7" fill="#fef08a"/>
-            <circle cx="78" cy="52" r="13" fill="#ca8a04" stroke="#854d0e" stroke-width="3"/>
-            <circle cx="78" cy="52" r="7" fill="#fef08a"/>
-            <!-- 金色皇冠 -->
-            <polygon points="34,42 42,24 50,34 58,24 66,42" fill="#f59e0b" stroke="#78350f" stroke-width="2.5"/>
-            <circle cx="42" cy="24" r="2.5" fill="#ef4444"/>
-            <circle cx="58" cy="24" r="2.5" fill="#ef4444"/>
-            <circle cx="50" cy="17" r="3" fill="#3b82f6"/>
-            <!-- 水汪汪大眼睛 -->
-            <ellipse cx="38" cy="65" rx="6" ry="7.5" fill="#0f172a"/>
-            <circle cx="36" cy="62.5" r="2.5" fill="#ffffff"/>
-            <circle cx="39.5" cy="67.5" r="1.2" fill="#ffffff"/>
-            <ellipse cx="62" cy="65" rx="6" ry="7.5" fill="#0f172a"/>
-            <circle cx="60" cy="62.5" r="2.5" fill="#ffffff"/>
-            <circle cx="63.5" cy="67.5" r="1.2" fill="#ffffff"/>
-            <!-- 腮紅與嘴巴 -->
-            <ellipse cx="28" cy="76" rx="6" ry="4" fill="#fb923c" opacity="0.8"/>
-            <ellipse cx="72" cy="76" rx="6" ry="4" fill="#fb923c" opacity="0.8"/>
-            <ellipse cx="50" cy="72" rx="6" ry="4.5" fill="#78350f"/>
-            <rect x="47" y="76.5" width="6" height="5" rx="1.5" fill="#ffffff" stroke="#78350f" stroke-width="1.2"/>
-        </svg>
-        `;
-
-        // 搗蛋炸彈 (-200 分且重置 Combo)
-        const BOMB_MOLE_SVG = `
-        <svg viewBox="0 0 100 115" class="w-full h-full drop-shadow-md">
-            <!-- 導火線與火花 -->
-            <path d="M50 32 Q58 18 68 15" fill="none" stroke="#78350f" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="69" cy="14" r="4.5" fill="#f59e0b" class="animate-ping"/>
-            <circle cx="69" cy="14" r="3" fill="#ef4444"/>
-            <!-- 圓形黑色炸彈身體 -->
-            <circle cx="50" cy="72" r="38" fill="#1e293b" stroke="#090d16" stroke-width="4"/>
-            <!-- 炸彈頂部引信頭 -->
-            <rect x="42" y="30" width="16" height="8" rx="2" fill="#64748b" stroke="#0f172a" stroke-width="2"/>
-            <!-- 邪惡紅色眼睛 (怒目) -->
-            <polygon points="32,60 45,67 35,71" fill="#ef4444"/>
-            <polygon points="68,60 55,67 65,71" fill="#ef4444"/>
-            <circle cx="39" cy="67" r="1.8" fill="#ffffff"/>
-            <circle cx="61" cy="67" r="1.8" fill="#ffffff"/>
-            <!-- 咧嘴壞笑 (鋸齒牙齒) -->
-            <path d="M36 82 Q50 94 64 82" fill="#dc2626" stroke="#000" stroke-width="2.5"/>
-            <polygon points="42,83 45,87 48,83" fill="#ffffff"/>
-            <polygon points="52,83 55,87 58,83" fill="#ffffff"/>
-        </svg>
-        `;
-
-        // 被敲暈的表情 (暈頭轉向螺旋眼)
-        const DIZZY_MOLE_SVG = `
-        <svg viewBox="0 0 100 115" class="w-full h-full drop-shadow-md">
-            <path d="M15 115 C15 45, 85 45, 85 115 Z" fill="#78431b" stroke="#452309" stroke-width="4"/>
-            <!-- 耳朵垂下 -->
-            <circle cx="20" cy="60" r="11" fill="#78431b" stroke="#452309" stroke-width="2.5"/>
-            <circle cx="80" cy="60" r="11" fill="#78431b" stroke="#452309" stroke-width="2.5"/>
-            <!-- 螺旋暈暈眼 (X眼) -->
-            <text x="31" y="70" font-size="19" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
-            <text x="69" y="70" font-size="19" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
-            <ellipse cx="50" cy="75" rx="6" ry="4" fill="#311706"/>
-            <!-- 波浪吐舌嘴巴 -->
-            <path d="M42 84 Q46 80 50 84 Q54 88 58 84" fill="none" stroke="#261003" stroke-width="3" stroke-linecap="round"/>
-            <ellipse cx="53" cy="89" rx="4" ry="4.5" fill="#f87171"/>
-        </svg>
-        `;
-
-        /* ==============================================================
-           3. 遊戲狀態與核心邏輯
-           ============================================================== */
-        const TOTAL_HOLES = 16;
-        let score = 0;
-        let timeLeft = 60;
-        let selectedDuration = 60;
-        let combo = 0;
-        let maxCombo = 0;
-        let totalSwings = 0;
-        let totalHits = 0;
-
-        let isPlaying = false;
-        let isPaused = false;
-        let timerInterval = null;
-        let moleSpawnTimeout = null;
-
-        // 難易度設定參數
-        const DIFFICULTY_SETTINGS = {
-            easy: {
-                stayMin: 1200, stayMax: 1500,
-                spawnIntervalMin: 700, spawnIntervalMax: 1100,
-                maxSimultaneous: 2,
-                goldChance: 0.15,
-                bombChance: 0.05
-            },
-            normal: {
-                stayMin: 800, stayMax: 1100,
-                spawnIntervalMin: 500, spawnIntervalMax: 800,
-                maxSimultaneous: 3,
-                goldChance: 0.18,
-                bombChance: 0.14
-            },
-            hard: {
-                stayMin: 500, stayMax: 750,
-                spawnIntervalMin: 350, spawnIntervalMax: 600,
-                maxSimultaneous: 4,
-                goldChance: 0.20,
-                bombChance: 0.28
-            }
-        };
-
-        // 紀錄目前每個洞的狀態
-        // status: 'empty' | 'up' | 'hit'
-        // type: 'normal' | 'gold' | 'bomb'
-        const holesState = Array.from({ length: TOTAL_HOLES }, () => ({
-            status: 'empty',
-            type: 'normal',
-            hideTimeout: null
-        }));
-
-        // DOM 元素引用
-        const gridBoard = document.getElementById('gridBoard');
-        const currentScoreEl = document.getElementById('currentScore');
-        const timeLeftDisplay = document.getElementById('timeLeftDisplay');
-        const comboDisplay = document.getElementById('comboDisplay');
-        const accuracyText = document.getElementById('accuracyText');
-        const bestScoreText = document.getElementById('bestScoreText');
-        const startBtn = document.getElementById('startBtn');
-        const pauseBtn = document.getElementById('pauseBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const timeSelect = document.getElementById('timeSelect');
-        const diffSelect = document.getElementById('diffSelect');
-        const soundToggleBtn = document.getElementById('soundToggleBtn');
-        const soundIcon = document.getElementById('soundIcon');
-        const soundText = document.getElementById('soundText');
-        const resultModal = document.getElementById('resultModal');
-        const modalPlayAgainBtn = document.getElementById('modalPlayAgainBtn');
-        const toast = document.getElementById('toast');
-
-        /* ==============================================================
-           4. 棋盤初始化與事件綁定
-           ============================================================== */
-        function initBoard() {
-            gridBoard.innerHTML = '';
-            for (let i = 0; i < TOTAL_HOLES; i++) {
-                const holeWrapper = document.createElement('div');
-                holeWrapper.className = 'hole-wrapper';
-
-                // 洞穴內部容器與泥土造型
-                holeWrapper.innerHTML = `
-                    <div class="dirt-mound"></div>
-                    <div class="hole-container">
-                        <div id="mole-${i}" class="mole-actor" data-index="${i}">
-                            ${NORMAL_MOLE_SVG}
-                        </div>
-                    </div>
-                    <!-- 前景草邊邊緣 -->
-                    <div class="grass-tuft flex justify-between items-end px-1">
-                        <span class="text-green-700 text-xs font-black">▲</span>
-                        <span class="text-green-600 text-[10px] font-black">▲</span>
-                        <span class="text-green-700 text-xs font-black">▲</span>
-                    </div>
-                `;
-
-                // 監聽敲擊 (支援 Mouse 與 Touch)
-                const moleActor = holeWrapper.querySelector(`#mole-${i}`);
-                
-                // 點擊地鼠
-                moleActor.addEventListener('pointerdown', (e) => {
-                    e.stopPropagation(); // 避免觸發揮空
-                    handleMoleHit(i, e);
-                });
-
-                // 點擊洞穴周圍 (揮空)
-                holeWrapper.addEventListener('pointerdown', (e) => {
-                    handleBoardSwing(e);
-                });
-
-                gridBoard.appendChild(holeWrapper);
-            }
-
-            // 讀取最高分
-            updateBestScoreDisplay();
-        }
-
-        // 畫面點擊總次數累加與命中率計算
-        function handleBoardSwing(e) {
-            if (!isPlaying || isPaused) return;
-            totalSwings++;
-            updateStatsUI();
-            sound.playMiss();
-            showHammerEffect(e.clientX, e.clientY);
-        }
-
-        // 敲擊地鼠處理
-        function handleMoleHit(index, e) {
-            if (!isPlaying || isPaused) return;
-            
-            const hole = holesState[index];
-            if (hole.status !== 'up') return; // 已縮回或已打擊過
-
-            totalSwings++;
-            totalHits++;
-            hole.status = 'hit';
-            clearTimeout(hole.hideTimeout);
-
-            const moleElem = document.getElementById(`mole-${index}`);
-            moleElem.classList.add('hit');
-
-            // 槌子擊打視覺特效
-            showHammerEffect(e.clientX, e.clientY);
-
-            if (hole.type === 'bomb') {
-                // 敲到炸彈！
-                combo = 0;
-                const penalty = 200;
-                score = Math.max(0, score - penalty);
-                sound.playBomb();
-                showFloatingText(e.clientX, e.clientY, `-${penalty} 💣`, '#ef4444');
-                createExplosionStars(e.clientX, e.clientY, '#475569');
-            } else if (hole.type === 'gold') {
-                // 敲中黃金地鼠！
-                combo++;
-                if (combo > maxCombo) maxCombo = combo;
-                const comboBonus = Math.floor(combo / 5) * 50;
-                const earned = 300 + comboBonus;
-                score += earned;
-                sound.playGold();
-                showFloatingText(e.clientX, e.clientY, `+${earned} 👑`, '#eab308');
-                createExplosionStars(e.clientX, e.clientY, '#facc15');
-            } else {
-                // 普通地鼠
-                combo++;
-                if (combo > maxCombo) maxCombo = combo;
-                const comboBonus = Math.floor(combo / 5) * 30;
-                const earned = 100 + comboBonus;
-                score += earned;
-                sound.playHit();
-                showFloatingText(e.clientX, e.clientY, `+${earned}`, '#22c55e');
-                createExplosionStars(e.clientX, e.clientY, '#fbbf24');
-            }
-
-            // 切換成敲暈狀態圖
-            if (hole.type !== 'bomb') {
-                moleElem.innerHTML = DIZZY_MOLE_SVG;
-            }
-
-            // 連擊提示特效
-            if (combo >= 2) {
-                showComboFloat(e.clientX, e.clientY, combo);
-            }
-
-            updateStatsUI();
-
-            // 0.28秒後縮回洞中
-            setTimeout(() => {
-                moleElem.classList.remove('up', 'hit');
-                hole.status = 'empty';
-            }, 280);
-        }
-
-        /* ==============================================================
-           5. 視覺回饋效果 (漂浮文字、星星、槌子)
-           ============================================================== */
-        // 浮動得分文字
-        function showFloatingText(x, y, text, color) {
-            const el = document.createElement('div');
-            el.className = 'floating-score text-2xl font-black';
-            el.style.left = `${x - 20}px`;
-            el.style.top = `${y - 30}px`;
-            el.style.color = color;
-            el.textContent = text;
-            document.body.appendChild(el);
-
-            setTimeout(() => el.remove(), 850);
-        }
-
-        // 連擊提示文字
-        function showComboFloat(x, y, count) {
-            const el = document.createElement('div');
-            el.className = 'floating-score text-sm font-black text-amber-300';
-            el.style.left = `${x - 15}px`;
-            el.style.top = `${y + 12}px`;
-            el.textContent = `Combo ×${count}!`;
-            document.body.appendChild(el);
-
-            setTimeout(() => el.remove(), 700);
-        }
-
-        // 槌子打擊落下動效
-        function showHammerEffect(x, y) {
-            const hammer = document.createElement('div');
-            hammer.className = 'hammer-fx';
-            hammer.style.left = `${x - 30}px`;
-            hammer.style.top = `${y - 50}px`;
-            hammer.innerHTML = `
-                <svg viewBox="0 0 60 60" class="w-full h-full drop-shadow-lg">
-                    <g transform="rotate(30 30 30)">
-                        <rect x="26" y="22" width="8" height="35" rx="4" fill="#92400e" stroke="#451a03" stroke-width="2"/>
-                        <rect x="10" y="8" width="40" height="20" rx="6" fill="#dc2626" stroke="#7f1d1d" stroke-width="3"/>
-                        <rect x="14" y="12" width="8" height="12" rx="2" fill="#fca5a5" opacity="0.8"/>
-                    </g>
-                </svg>
-            `;
-            document.body.appendChild(hammer);
-            setTimeout(() => hammer.remove(), 300);
-        }
-
-        // 擊中飛散星星
-        function createExplosionStars(x, y, color) {
-            const count = 6;
-            for (let i = 0; i < count; i++) {
-                const star = document.createElement('div');
-                star.className = 'star-particle';
-                star.style.left = `${x - 10}px`;
-                star.style.top = `${y - 10}px`;
-
-                const angle = (Math.PI * 2 / count) * i;
-                const distance = 35 + Math.random() * 25;
-                const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance;
-
-                star.style.setProperty('--tx', `${tx}px`);
-                star.style.setProperty('--ty', `${ty}px`);
-
-                star.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="${color}">
-                        <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9"/>
-                    </svg>
-                `;
-                document.body.appendChild(star);
-                setTimeout(() => star.remove(), 550);
-            }
-        }
-
-        /* ==============================================================
-           6. 地鼠出現調度機制 (Spawning Loop)
-           ============================================================== */
-        function spawnMole() {
-            if (!isPlaying || isPaused) return;
-
-            const diff = DIFFICULTY_SETTINGS[diffSelect.value];
-
-            // 檢查目前已有幾隻地鼠立起
-            const activeMoles = holesState.filter(h => h.status === 'up').length;
-
-            if (activeMoles < diff.maxSimultaneous) {
-                // 找出目前所有空閒的洞
-                const availableIndices = [];
-                holesState.forEach((h, idx) => {
-                    if (h.status === 'empty') availableIndices.push(idx);
-                });
-
-                if (availableIndices.length > 0) {
-                    const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
-                    activateMole(randomIndex, diff);
-                }
-            }
-
-            // 安排下一次隨機生成間隔
-            const nextInterval = Math.random() * (diff.spawnIntervalMax - diff.spawnIntervalMin) + diff.spawnIntervalMin;
-            moleSpawnTimeout = setTimeout(spawnMole, nextInterval);
-        }
-
-        function activateMole(index, diff) {
-            const hole = holesState[index];
-            hole.status = 'up';
-
-            // 決定出現類型：普通、金地鼠、炸彈
-            const roll = Math.random();
-            let type = 'normal';
-            let svgContent = NORMAL_MOLE_SVG;
-
-            if (roll < diff.bombChance) {
-                type = 'bomb';
-                svgContent = BOMB_MOLE_SVG;
-            } else if (roll < diff.bombChance + diff.goldChance) {
-                type = 'gold';
-                svgContent = GOLD_MOLE_SVG;
-            }
-
-            hole.type = type;
-
-            const moleElem = document.getElementById(`mole-${index}`);
-            moleElem.innerHTML = svgContent;
-            moleElem.classList.remove('hit');
-            moleElem.classList.add('up');
-
-            // 播放出現音
-            if (type !== 'bomb') {
-                sound.playPop();
-            }
-
-            // 設定在洞口停留時間
-            const stayTime = Math.random() * (diff.stayMax - diff.stayMin) + diff.stayMin;
-
-            hole.hideTimeout = setTimeout(() => {
-                if (hole.status === 'up') {
-                    moleElem.classList.remove('up');
-                    hole.status = 'empty';
-                }
-            }, stayTime);
-        }
-
-        /* ==============================================================
-           7. 遊戲主流程控制 (開始、暫停、倒數、結算、重置)
-           ============================================================== */
-        function startGame() {
-            sound.init(); // 觸發使用者手勢啟用 AudioContext
-            
-            // 重置數值
-            score = 0;
-            combo = 0;
-            maxCombo = 0;
-            totalSwings = 0;
-            totalHits = 0;
-            selectedDuration = parseInt(timeSelect.value, 10);
-            timeLeft = selectedDuration;
-
-            isPlaying = true;
-            isPaused = false;
-
-            // 介面按鈕狀態
-            startBtn.disabled = true;
-            startBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            pauseBtn.disabled = false;
-            timeSelect.disabled = true;
-            diffSelect.disabled = true;
-
-            updateStatsUI();
-            resetAllMoles();
-
-            // 倒數計時器
-            clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
-                if (!isPaused) {
-                    timeLeft--;
-                    updateStatsUI();
-
-                    if (timeLeft <= 0) {
-                        endGame();
-                    }
-                }
-            }, 1000);
-
-            // 開始生成地鼠
-            clearTimeout(moleSpawnTimeout);
-            spawnMole();
-
-            showToast("🎮 遊戲開始！全力敲擊地鼠吧！");
-        }
-
-        function togglePause() {
-            if (!isPlaying) return;
-
-            isPaused = !isPaused;
-            if (isPaused) {
-                pauseBtn.innerHTML = "▶️ 繼續";
-                pauseBtn.classList.remove('from-amber-400', 'to-amber-600');
-                pauseBtn.classList.add('from-emerald-400', 'to-emerald-600');
-                showToast("⏸️ 遊戲已暫停");
-            } else {
-                pauseBtn.innerHTML = "⏸️ 暫停";
-                pauseBtn.classList.remove('from-emerald-400', 'to-emerald-600');
-                pauseBtn.classList.add('from-amber-400', 'to-amber-600');
-                showToast("▶️ 遊戲繼續！");
-                spawnMole();
-            }
-        }
-
-        function endGame() {
-            isPlaying = false;
-            clearInterval(timerInterval);
-            clearTimeout(moleSpawnTimeout);
-            resetAllMoles();
-
-            // 更新歷史最高紀錄
-            const best = getBestScore();
-            if (score > best) {
-                localStorage.setItem('whack_mole_best_score', score);
-                updateBestScoreDisplay();
-                sound.playWin();
-            }
-
-            // 彈出結算視窗
-            showResultModal();
-
-            // 恢復控制狀態
-            startBtn.disabled = false;
-            startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            pauseBtn.disabled = true;
-            pauseBtn.innerHTML = "⏸️ 暫停";
-            timeSelect.disabled = false;
-            diffSelect.disabled = false;
-        }
-
-        function resetGame() {
-            isPlaying = false;
-            isPaused = false;
-            clearInterval(timerInterval);
-            clearTimeout(moleSpawnTimeout);
-
-            score = 0;
-            combo = 0;
-            maxCombo = 0;
-            totalSwings = 0;
-            totalHits = 0;
-            selectedDuration = parseInt(timeSelect.value, 10);
-            timeLeft = selectedDuration;
-
-            startBtn.disabled = false;
-            startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            pauseBtn.disabled = true;
-            pauseBtn.innerHTML = "⏸️ 暫停";
-            timeSelect.disabled = false;
-            diffSelect.disabled = false;
-
-            resetAllMoles();
-            updateStatsUI();
-            resultModal.classList.add('hidden');
-            showToast("🔄 遊戲已重設");
-        }
-
-        function resetAllMoles() {
-            holesState.forEach((hole, idx) => {
-                clearTimeout(hole.hideTimeout);
-                hole.status = 'empty';
-                const el = document.getElementById(`mole-${idx}`);
-                if (el) {
-                    el.classList.remove('up', 'hit');
-                }
-            });
-        }
-
-        function updateStatsUI() {
-            currentScoreEl.textContent = score;
-            timeLeftDisplay.textContent = `${timeLeft}s`;
-            comboDisplay.textContent = combo;
-
-            const accuracy = totalSwings > 0 ? Math.round((totalHits / totalSwings) * 100) : 100;
-            accuracyText.textContent = `${accuracy}%`;
-
-            if (timeLeft <= 10 && isPlaying) {
-                timeLeftDisplay.parentElement.classList.add('animate-pulse');
-            } else {
-                timeLeftDisplay.parentElement.classList.remove('animate-pulse');
-            }
-        }
-
-        function getBestScore() {
-            return parseInt(localStorage.getItem('whack_mole_best_score') || '0', 10);
-        }
-
-        function updateBestScoreDisplay() {
-            bestScoreText.textContent = getBestScore();
-        }
-
-        function showResultModal() {
-            const accuracy = totalSwings > 0 ? Math.round((totalHits / totalSwings) * 100) : 100;
-            document.getElementById('finalScore').textContent = score;
-            document.getElementById('finalMaxCombo').textContent = `${maxCombo} 次連擊`;
-            document.getElementById('finalHitsInfo').textContent = `${totalHits} / ${totalSwings}`;
-            document.getElementById('finalAccuracy').textContent = `${accuracy}%`;
-
-            const emojiEl = document.getElementById('modalEmoji');
-            const titleEl = document.getElementById('modalTitle');
-
-            if (score >= 3000) {
-                emojiEl.textContent = "👑";
-                titleEl.textContent = "太神啦！地鼠終結者！";
-            } else if (score >= 1500) {
-                emojiEl.textContent = "🎉";
-                titleEl.textContent = "幹得好！反應非常敏捷！";
-            } else {
-                emojiEl.textContent = "🐹";
-                titleEl.textContent = "再接再厲！下盤會更好！";
-            }
-
-            resultModal.classList.remove('hidden');
-        }
-
-        function showToast(msg) {
-            toast.textContent = msg;
-            toast.classList.remove('opacity-0', '-translate-y-4');
-            toast.classList.add('opacity-100', 'translate-y-0');
-
-            setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-0');
-                toast.classList.add('opacity-0', '-translate-y-4');
-            }, 2000);
-        }
-
-        /* ==============================================================
-           8. 事件監聽掛載
-           ============================================================== */
-        startBtn.addEventListener('click', startGame);
-        pauseBtn.addEventListener('click', togglePause);
-        resetBtn.addEventListener('click', resetGame);
-        modalPlayAgainBtn.addEventListener('click', () => {
-            resultModal.classList.add('hidden');
-            startGame();
-        });
-
-        // 下拉選單改動連動更新預設時間
-        timeSelect.addEventListener('change', () => {
-            if (!isPlaying) {
-                timeLeft = parseInt(timeSelect.value, 10);
-                timeLeftDisplay.textContent = `${timeLeft}s`;
-            }
-        });
-
-        // 音效開關切換
-        soundToggleBtn.addEventListener('click', () => {
-            sound.muted = !sound.muted;
-            if (sound.muted) {
-                soundIcon.textContent = "🔇";
-                soundText.textContent = "靜音中";
-                soundToggleBtn.classList.remove('bg-amber-100', 'text-amber-900');
-                soundToggleBtn.classList.add('bg-slate-300', 'text-slate-600');
-            } else {
-                sound.init();
-                soundIcon.textContent = "🔊";
-                soundText.textContent = "音效開";
-                soundToggleBtn.classList.add('bg-amber-100', 'text-amber-900');
-                soundToggleBtn.classList.remove('bg-slate-300', 'text-slate-600');
-            }
-        });
-
-        // 初始化棋盤
-        window.onload = () => {
-            initBoard();
-        };
-    </script>
+  </section>
+
+  <!-- 選題 -->
+  <section data-view="topics">
+    <h2>想聊哪一段人生？</h2>
+    <div class="cats" id="cats"></div>
+    <div class="qs" id="qs"></div>
+    <div class="card" style="margin-top:16px">
+      <label class="f" for="customQ" style="margin-top:0">或自己出一題</label>
+      <div class="row">
+        <input class="t" id="customQ" placeholder="例如：您還記得第一次坐火車嗎？" style="flex:3 1 260px">
+        <button class="btn" id="customGo" style="flex:1 1 120px">開始</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 錄音 -->
+  <section data-view="record">
+    <div class="card">
+      <div class="muted" id="recCat" style="text-align:center"></div>
+      <div class="qbig" id="recQ"></div>
+      <p class="muted" style="text-align:center;margin:0">請唸出題目，慢慢問，給長輩時間想。</p>
+      <div class="timer"><span class="rec-dot"></span><span id="timer">00:00</span></div>
+      <div class="meter"><i id="meter"></i></div>
+      <button class="bigrec" id="recBtn" aria-label="開始錄音">
+        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0h-2a5 5 0 0 1-10 0z"/><rect x="11" y="18" width="2" height="3"/></svg>
+        <span id="recLabel">開始錄音</span>
+      </button>
+      <div class="row" id="recCtrls" style="display:none">
+        <button class="btn ghost" id="pauseBtn">暫停</button>
+        <button class="btn" id="stopBtn">說完了，收進唱片</button>
+      </div>
+      <label class="switch" id="sttWrap"><input type="checkbox" id="sttOn"> 同時顯示文字（由瀏覽器的語音服務轉寫，需連網）</label>
+      <div class="live" id="live" style="display:none;margin-top:8px"></div>
+    </div>
+    <div class="card">
+      <b style="color:var(--brown)">追問小卡</b> <span class="muted">— 長輩停下來時，點一張問問看</span>
+      <div class="tips" id="followups"></div>
+      <details class="guide" style="margin-top:14px">
+        <summary>陪伴小提醒</summary>
+        <ul>
+          <li>年份、人名記錯沒關係，不用糾正，故事比正確更重要。</li>
+          <li>沉默時先等十秒，長輩常常正在回想。</li>
+          <li>點頭、重複長輩說的最後一句，比換新問題更能讓話接下去。</li>
+          <li>說到傷心事，先陪著、不追問；長輩想停就停。</li>
+          <li>一次聊 10～20 分鐘就好，下次再來。</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  <!-- 保存 -->
+  <section data-view="save">
+    <h2>替這張唱片寫上標籤</h2>
+    <div class="card">
+      <audio id="savePlayer" controls style="width:100%"></audio>
+      <label class="f" for="sTitle">故事名稱</label>
+      <input class="t" id="sTitle">
+      <label class="f" for="sEra">大約是哪一年／幾歲的事？</label>
+      <input class="t" id="sEra" placeholder="例如：民國 50 年、十幾歲時">
+      <label class="f" for="sText">重點紀錄（可以之後再補）</label>
+      <textarea class="t" id="sText" placeholder="記下人名、地名、長輩特別強調的話……"></textarea>
+      <label class="f" for="sPhoto">配一張老照片（可不選）</label>
+      <input type="file" id="sPhoto" accept="image/*">
+      <img id="sPhotoPrev" class="photo-prev" alt="" style="display:none">
+      <div class="row" style="margin-top:18px">
+        <button class="btn ghost" id="discardBtn">不要這段</button>
+        <button class="btn" id="saveBtn">收進唱片櫃</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 唱片櫃 -->
+  <section data-view="shelf">
+    <h2>唱片櫃</h2>
+    <div class="filters" id="filters"></div>
+    <div class="shelf" id="shelfList"></div>
+    <div class="card" style="margin-top:18px">
+      <b style="color:var(--brown)">做成故事書、備份</b>
+      <p class="muted" style="margin:6px 0 12px">故事書可以列印或存成 PDF 送給家人；備份檔包含所有錄音，可以搬到另一台裝置。</p>
+      <div class="row">
+        <button class="btn brass" id="bookBtn">列印生命故事書</button>
+        <button class="btn ghost" id="backupBtn">下載備份</button>
+        <button class="btn ghost" id="restoreBtn">讀入備份</button>
+        <input type="file" id="restoreFile" accept="application/json,.json" hidden>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- 同意對話框 -->
+<div class="modal" id="consent" role="dialog" aria-modal="true" aria-labelledby="cTitle">
+  <div class="card">
+    <h2 id="cTitle">錄音前，先問一聲</h2>
+    <p>請先對長輩說：</p>
+    <p style="font-family:var(--serif);font-size:23px;color:var(--brown2);background:var(--paper2);border-radius:12px;padding:12px 16px">「我想把您說的故事錄下來，留給家裡的孩子聽，好不好？」</p>
+    <p class="muted">長輩說好再開始；中途想停，隨時可以停，也可以刪掉。</p>
+    <div class="row"><button class="btn ghost" id="cNo">先不要</button><button class="btn" id="cYes">長輩答應了</button></div>
+  </div>
+</div>
+
+<!-- 編輯對話框 -->
+<div class="modal" id="editM" role="dialog" aria-modal="true" aria-labelledby="eTitleH">
+  <div class="card">
+    <h2 id="eTitleH">編輯唱片</h2>
+    <label class="f" for="eTitle">故事名稱</label><input class="t" id="eTitle">
+    <label class="f" for="eEra">年代</label><input class="t" id="eEra">
+    <label class="f" for="eText">重點紀錄</label><textarea class="t" id="eText"></textarea>
+    <div class="row" style="margin-top:16px"><button class="btn ghost" id="eCancel">取消</button><button class="btn" id="eSave">儲存</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div id="book"></div>
+<audio id="player" hidden></audio>
+
+<script>
+/* ---------- 題庫 ---------- */
+const CATS=[
+ {id:'child',icon:'🪁',name:'童年時光',tag:'家、玩伴、過年',color:'#C99A3E',qs:[
+  '您小時候住在哪裡？家裡長什麼樣子？','小時候最常玩什麼遊戲？都跟誰一起玩？','小時候過年是怎麼過的？最期待什麼？',
+  '您的爸爸媽媽是怎樣的人？','小時候最喜歡吃什麼？','有沒有小時候闖過的禍，現在想起來會笑的？']},
+ {id:'youth',icon:'📚',name:'求學青春',tag:'學校、朋友、夢想',color:'#6E8B5B',qs:[
+  '您讀過哪些學校？上學要走多遠的路？','印象最深的老師是誰？為什麼？','年輕時最要好的朋友是誰？',
+  '年輕的時候流行什麼歌、什麼打扮？','那時候的夢想是什麼？']},
+ {id:'work',icon:'🔨',name:'工作打拼',tag:'第一份工作、本事',color:'#7A4B2A',qs:[
+  '您的第一份工作是什麼？第一份薪水怎麼用的？','工作上最驕傲的一件事是什麼？','最辛苦的那段日子，是怎麼撐過來的？',
+  '您會的手藝或本事，是誰教您的？']},
+ {id:'family',icon:'💍',name:'成家相伴',tag:'另一半、孩子',color:'#A8432F',qs:[
+  '您和另一半是怎麼認識的？','結婚那天是什麼情形？','第一個孩子出生時，您的心情是怎樣？','家裡最熱鬧的是哪一段日子？']},
+ {id:'home',icon:'🍲',name:'家鄉味道',tag:'習俗、拿手菜、老街',color:'#B5703A',qs:[
+  '家鄉有什麼特別的節慶或習俗？','您有沒有一道拿手菜？是怎麼做的？','以前的市場、街道是什麼樣子？','有沒有一首歌，一聽就想起從前？']},
+ {id:'wisdom',icon:'🌳',name:'人生智慧',tag:'決定、感謝、幸福',color:'#4E6E7A',qs:[
+  '您人生中最重要的一個決定是什麼？','如果能回到過去，想對年輕的自己說什麼？','您覺得什麼是幸福？','這輩子最感謝的人是誰？']},
+ {id:'legacy',icon:'💌',name:'留給家人',tag:'想說的話、傳統',color:'#8A5A86',qs:[
+  '有什麼話想對孫子孫女說？','希望家人記得您的哪些事？','家裡有什麼傳統，希望一直傳下去？']},
+ {id:'custom',icon:'✏️',name:'自訂話題',tag:'家屬自己出的題',color:'#8C7B66',qs:[],hidden:true}
+];
+const FOLLOW=['那時候您幾歲？','還有誰在場？','那是什麼樣子？可以多說一點嗎？','您那時心裡怎麼想？','後來呢？',
+  '聞起來、吃起來是什麼味道？','現在回想起來，是什麼感覺？','這件事有教會您什麼嗎？'];
+const catOf=id=>CATS.find(c=>c.id===id)||CATS[CATS.length-1];
+
+/* ---------- IndexedDB ---------- */
+let dbP;
+function db(){ return dbP||(dbP=new Promise((res,rej)=>{
+  const r=indexedDB.open('life-phono',1);
+  r.onupgradeneeded=()=>{ r.result.createObjectStore('stories',{keyPath:'id'}); r.result.createObjectStore('meta'); };
+  r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error);
+}));}
+async function tx(store,mode,fn){ const d=await db(); return new Promise((res,rej)=>{
+  const t=d.transaction(store,mode); const out=fn(t.objectStore(store)); t.oncomplete=()=>res(out instanceof IDBRequest?out.result:out); t.onerror=()=>rej(t.error);
+});}
+const putStory=s=>tx('stories','readwrite',st=>st.put(s));
+const delStory=id=>tx('stories','readwrite',st=>st.delete(id));
+const allStories=()=>tx('stories','readonly',st=>st.getAll()).then(a=>(a||[]).sort((x,y)=>y.created-x.created));
+const getMeta=k=>tx('meta','readonly',st=>st.get(k));
+const setMeta=(k,v)=>tx('meta','readwrite',st=>st.put(v,k));
+
+/* ---------- 小工具 ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=s=>{s=Math.round(s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2600);}
+function go(v){
+  document.querySelectorAll('section[data-view]').forEach(s=>s.classList.toggle('on',s.dataset.view===v));
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(v==='home') renderHome(); if(v==='shelf') renderShelf(); if(v==='topics') renderTopics();
+}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]'); if(g){ if(isRecording()){toast('請先按「說完了」結束錄音');return;} go(g.dataset.go);} });
+
+/* ---------- 長輩資料 ---------- */
+let elder={name:'',year:''};
+async function loadElder(){ elder=(await getMeta('elder'))||elder; $('#elderName').value=elder.name; $('#elderYear').value=elder.year; }
+['#elderName','#elderYear'].forEach(s=>$(s).addEventListener('input',()=>{elder={name:$('#elderName').value.trim(),year:$('#elderYear').value.trim()};setMeta('elder',elder);renderHello();}));
+function renderHello(){ $('#hello').textContent=elder.name?`今天，聽${elder.name}說故事`:'歡迎來到時光留聲機'; }
+async function renderHome(){
+  renderHello();
+  const a=await allStories(); const sec=a.reduce((t,s)=>t+(s.duration||0),0);
+  const cats=new Set(a.map(s=>s.cat)).size;
+  $('#stat').innerHTML=a.length?`<div><b>${a.length}</b>張唱片</div><div><b>${Math.max(1,Math.round(sec/60))}</b>分鐘的聲音</div><div><b>${cats}</b>段人生</div>`:'<div>還沒有唱片，從第一個故事開始吧</div>';
+}
+
+/* ---------- 選題 ---------- */
+let curCat='child', cur={cat:'',q:''};
+async function renderTopics(){
+  const done=new Set((await allStories()).map(s=>s.q));
+  $('#cats').innerHTML=CATS.filter(c=>!c.hidden).map(c=>`<button class="cat ${c.id===curCat?'on':''}" data-cat="${c.id}"><i>${c.icon}</i><b>${c.name}</b><span>${c.tag}</span></button>`).join('');
+  const c=catOf(curCat);
+  $('#qs').innerHTML=c.qs.map(q=>`<button class="q" data-q="${esc(q)}">${esc(q)}${done.has(q)?'<span class="done">✓ 已錄過</span>':''}</button>`).join('');
+}
+$('#cats').addEventListener('click',e=>{const b=e.target.closest('[data-cat]'); if(b){curCat=b.dataset.cat;renderTopics();}});
+$('#qs').addEventListener('click',e=>{const b=e.target.closest('[data-q]'); if(b) startTopic(curCat,b.dataset.q);});
+$('#customGo').addEventListener('click',()=>{const q=$('#customQ').value.trim(); if(!q){toast('請先寫下想問的題目');return;} startTopic('custom',q); $('#customQ').value='';});
+$('#randomBtn').addEventListener('click',async()=>{
+  const done=new Set((await allStories()).map(s=>s.q));
+  const pool=CATS.flatMap(c=>c.qs.map(q=>({c:c.id,q}))); const fresh=pool.filter(p=>!done.has(p.q));
+  const p=(fresh.length?fresh:pool)[Math.floor(Math.random()*(fresh.length||pool.length))]; startTopic(p.c,p.q);
+});
+
+let consented=false;
+async function startTopic(cat,q){
+  cur={cat,q}; const c=catOf(cat);
+  $('#recCat').textContent=c.icon+' '+c.name; $('#recQ').textContent=q;
+  $('#followups').innerHTML=FOLLOW.map(f=>`<button class="chip">${esc(f)}</button>`).join('');
+  resetRecUI(); go('record');
+  consented = consented || !!(await getMeta('consent-'+(elder.name||'_')));
+}
+$('#followups').addEventListener('click',e=>{const b=e.target.closest('.chip'); if(b){b.classList.add('hit'); if(isRecording()) marks.push({t:elapsed(),f:b.textContent});}});
+
+/* ---------- 錄音 ---------- */
+let mr=null, chunks=[], stream=null, t0=0, acc=0, tick=null, actx=null, analyser=null, marks=[], rec=null, finalText='';
+const isRecording=()=>mr&&mr.state!=='inactive';
+const elapsed=()=>acc+(mr&&mr.state==='recording'?(performance.now()-t0)/1000:0);
+function pickType(){ for(const t of ['audio/webm;codecs=opus','audio/mp4','audio/webm','audio/ogg']) if(window.MediaRecorder&&MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(t)) return t; return ''; }
+function resetRecUI(){ $('#timer').textContent='00:00'; $('#meter').style.width='0'; $('#recBtn').style.display='flex'; $('#recCtrls').style.display='none';
+  $('#live').innerHTML=''; $('#live').style.display='none'; $('#pauseBtn').textContent='暫停'; document.body.classList.remove('recording','paused','spinning'); }
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(!SR) $('#sttWrap').style.display='none';
+
+$('#recBtn').addEventListener('click',async()=>{
+  if(!consented){ $('#consent').classList.add('on'); return; }
+  beginRec();
+});
+$('#cNo').addEventListener('click',()=>$('#consent').classList.remove('on'));
+$('#cYes').addEventListener('click',()=>{ consented=true; setMeta('consent-'+(elder.name||'_'),Date.now()); $('#consent').classList.remove('on'); beginRec(); });
+
+async function beginRec(){
+  if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){ toast('這個瀏覽器不支援錄音，請改用 Chrome 或 Safari'); return; }
+  try{ stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}); }
+  catch(e){ toast('沒有麥克風權限，請在瀏覽器設定允許麥克風'); return; }
+  const type=pickType(); mr=new MediaRecorder(stream,type?{mimeType:type}:undefined); chunks=[]; marks=[]; acc=0; finalText='';
+  mr.ondataavailable=e=>{ if(e.data.size) chunks.push(e.data); };
+  mr.onstop=onStopped;
+  mr.start(1000); t0=performance.now();
+  // 音量表
+  try{ actx=new (window.AudioContext||window.webkitAudioContext)(); analyser=actx.createAnalyser(); analyser.fftSize=512;
+    actx.createMediaStreamSource(stream).connect(analyser); }catch(e){}
+  const buf=new Uint8Array(512);
+  tick=setInterval(()=>{ $('#timer').textContent=fmt(elapsed());
+    if(analyser){ analyser.getByteTimeDomainData(buf); let m=0; for(const v of buf) m=Math.max(m,Math.abs(v-128)); $('#meter').style.width=Math.min(100,m/0.9)+'%'; } },100);
+  $('#recBtn').style.display='none'; $('#recCtrls').style.display='flex';
+  document.body.classList.add('recording','spinning');
+  if(SR&&$('#sttOn').checked) startSTT();
+  navigator.wakeLock?.request('screen').then(l=>beginRec.lock=l).catch(()=>{});
+}
+$('#pauseBtn').addEventListener('click',()=>{
+  if(!mr) return;
+  if(mr.state==='recording'){ mr.pause(); acc+= (performance.now()-t0)/1000; $('#pauseBtn').textContent='繼續錄'; document.body.classList.add('paused'); document.body.classList.remove('spinning'); stopSTT(); }
+  else if(mr.state==='paused'){ mr.resume(); t0=performance.now(); $('#pauseBtn').textContent='暫停'; document.body.classList.remove('paused'); document.body.classList.add('spinning'); if(SR&&$('#sttOn').checked) startSTT(); }
+});
+$('#stopBtn').addEventListener('click',()=>{ if(!mr) return; if(mr.state==='recording') acc+=(performance.now()-t0)/1000; mr.stop(); });
+
+let pending=null;
+function onStopped(){
+  clearInterval(tick); stopSTT(); stream?.getTracks().forEach(t=>t.stop()); actx?.close().catch(()=>{}); analyser=null;
+  beginRec.lock?.release?.().catch(()=>{});
+  document.body.classList.remove('recording','paused','spinning');
+  const type=mr.mimeType||chunks[0]?.type||'audio/webm';
+  const blob=new Blob(chunks,{type}); mr=null;
+  if(acc<2||!blob.size){ toast('錄音太短，再試一次'); resetRecUI(); return; }
+  const text=(finalText.trim()?finalText.trim()+'\n':'')+(marks.length?'追問：'+marks.map(m=>`${fmt(m.t)} ${m.f}`).join('、'):'');
+  pending={id:'s'+Date.now(),cat:cur.cat,q:cur.q,audio:blob,type,duration:acc,created:Date.now(),photo:null};
+  $('#savePlayer').src=URL.createObjectURL(blob);
+  $('#sTitle').value=cur.q.replace(/[？?]$/,''); $('#sEra').value=''; $('#sText').value=text; $('#sPhoto').value=''; $('#sPhotoPrev').style.display='none';
+  go('save');
+}
+
+/* 即時文字 */
+let sttWant=false;
+function startSTT(){
+  sttWant=true; $('#live').style.display='block';
+  rec=new SR(); rec.lang='zh-TW'; rec.continuous=true; rec.interimResults=true;
+  rec.onresult=e=>{ let interim=''; for(let i=e.resultIndex;i<e.results.length;i++){ const r=e.results[i]; if(r.isFinal) finalText+=r[0].transcript+'，'; else interim+=r[0].transcript; }
+    $('#live').innerHTML=esc(finalText)+'<span class="interim">'+esc(interim)+'</span>'; };
+  rec.onend=()=>{ if(sttWant&&isRecording()&&mr.state==='recording') try{rec.start()}catch(e){} };
+  rec.onerror=e=>{ if(e.error==='not-allowed'||e.error==='service-not-allowed'){ sttWant=false; toast('這台裝置無法使用文字轉寫，只會錄音'); } };
+  try{ rec.start(); }catch(e){}
+}
+function stopSTT(){ sttWant=false; try{rec&&rec.stop()}catch(e){} }
+
+/* ---------- 保存 ---------- */
+$('#sPhoto').addEventListener('change',async e=>{
+  const f=e.target.files[0]; if(!f) return;
+  pending.photo=await shrinkImg(f,1000); $('#sPhotoPrev').src=URL.createObjectURL(pending.photo); $('#sPhotoPrev').style.display='block';
+});
+function shrinkImg(file,max){ return new Promise(res=>{ const img=new Image(); img.onload=()=>{
+  const k=Math.min(1,max/Math.max(img.width,img.height)); const c=document.createElement('canvas'); c.width=img.width*k; c.height=img.height*k;
+  c.getContext('2d').drawImage(img,0,0,c.width,c.height); c.toBlob(b=>res(b||file),'image/jpeg',.82); URL.revokeObjectURL(img.src); };
+  img.onerror=()=>res(file); img.src=URL.createObjectURL(file); }); }
+$('#saveBtn').addEventListener('click',async()=>{
+  if(!pending) return;
+  Object.assign(pending,{title:$('#sTitle').value.trim()||cur.q,era:$('#sEra').value.trim(),text:$('#sText').value.trim(),elder:elder.name});
+  await putStory(pending); pending=null; toast('已收進唱片櫃 ♪'); go('shelf');
+});
+$('#discardBtn').addEventListener('click',()=>{ if(confirm('確定不保留這段錄音嗎？')){ pending=null; go('topics'); } });
+
+/* ---------- 唱片櫃 ---------- */
+let filter='all', playingId=null, urls=[];
+async function renderShelf(){
+  const a=await allStories(); urls.forEach(URL.revokeObjectURL); urls=[];
+  const used=CATS.filter(c=>a.some(s=>s.cat===c.id));
+  $('#filters').innerHTML=a.length?[`<button class="chip ${filter==='all'?'on':''}" data-f="all">全部 ${a.length}</button>`,
+    ...used.map(c=>`<button class="chip ${filter===c.id?'on':''}" data-f="${c.id}">${c.icon} ${c.name}</button>`)].join(''):'';
+  const list=a.filter(s=>filter==='all'||s.cat===filter);
+  if(!list.length){ $('#shelfList').innerHTML='<div class="empty card">唱片櫃還是空的。<br>去「開始聊天」錄下第一個故事吧！</div>'; return; }
+  $('#shelfList').innerHTML=list.map(s=>{ const c=catOf(s.cat); let ph='';
+    if(s.photo){ const u=URL.createObjectURL(s.photo); urls.push(u); ph=`style="background-image:url(${u})"`; }
+    return `<div class="rec ${playingId===s.id?'playing':''}" data-id="${s.id}">
+      <div class="vinyl ${s.photo?'ph':''}" style="--lab:${c.color}" ${ph}></div>
+      <div class="meta"><b>${esc(s.title)}</b><span>${c.icon} ${c.name}${s.era?'・'+esc(s.era):''}・${fmt(s.duration||0)}・${new Date(s.created).toLocaleDateString('zh-TW')}</span></div>
+      <div class="acts"><button class="sm play" data-a="play">${playingId===s.id?'停止':'播放'}</button><button class="sm" data-a="edit">編輯</button><button class="sm" data-a="dl">下載</button><button class="sm" data-a="del" aria-label="刪除">刪除</button></div>
+    </div>`; }).join('');
+}
+$('#filters').addEventListener('click',e=>{const b=e.target.closest('[data-f]'); if(b){filter=b.dataset.f;renderShelf();}});
+const player=$('#player');
+player.onended=()=>{ playingId=null; renderShelf(); };
+let editing=null;
+$('#shelfList').addEventListener('click',async e=>{
+  const b=e.target.closest('[data-a]'); if(!b) return; const id=b.closest('.rec').dataset.id;
+  const s=(await allStories()).find(x=>x.id===id); if(!s) return;
+  if(b.dataset.a==='play'){
+    if(playingId===id){ player.pause(); playingId=null; }
+    else { player.src=URL.createObjectURL(s.audio); player.play().catch(()=>toast('無法播放這段錄音')); playingId=id; }
+    renderShelf();
+  } else if(b.dataset.a==='dl'){
+    const ext=(s.type||'').includes('mp4')?'m4a':(s.type||'').includes('ogg')?'ogg':'webm';
+    dl(s.audio,`${s.elder?s.elder+'-':''}${s.title}.${ext}`);
+  } else if(b.dataset.a==='del'){
+    if(confirm(`確定刪除「${s.title}」嗎？刪除後無法復原。`)){ if(playingId===id){player.pause();playingId=null;} await delStory(id); renderShelf(); toast('已刪除'); }
+  } else if(b.dataset.a==='edit'){
+    editing=s; $('#eTitle').value=s.title; $('#eEra').value=s.era||''; $('#eText').value=s.text||''; $('#editM').classList.add('on');
+  }
+});
+$('#eCancel').addEventListener('click',()=>$('#editM').classList.remove('on'));
+$('#eSave').addEventListener('click',async()=>{ Object.assign(editing,{title:$('#eTitle').value.trim()||editing.title,era:$('#eEra').value.trim(),text:$('#eText').value.trim()});
+  await putStory(editing); $('#editM').classList.remove('on'); renderShelf(); toast('已儲存'); });
+function dl(blob,name){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name.replace(/[\\/:*?"<>|]/g,''); document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000); }
+
+/* ---------- 故事書 ---------- */
+const b64=blob=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(blob);});
+$('#bookBtn').addEventListener('click',async()=>{
+  const a=(await allStories()).slice().sort((x,y)=>CATS.indexOf(catOf(x.cat))-CATS.indexOf(catOf(y.cat))||x.created-y.created);
+  if(!a.length){ toast('還沒有故事可以印'); return; }
+  const parts=[];
+  for(const s of a){ const c=catOf(s.cat); const img=s.photo?`<img src="${await b64(s.photo)}" alt="">`:'';
+    parts.push(`<article><h3>${esc(s.title)}</h3><div class="m">${c.name}${s.era?'・'+esc(s.era):''}・錄於 ${new Date(s.created).toLocaleDateString('zh-TW')}・問題：${esc(s.q)}</div>${img}<p>${esc(s.text||'（錄音中的故事，請掃描或聆聽原聲）')}</p></article>`); }
+  $('#book').innerHTML=`<h1>${esc(elder.name||'家人')}的生命故事</h1><div class="sub">${elder.year?esc(elder.year)+' 年生・':''}共 ${a.length} 個故事・時光留聲機整理</div>${parts.join('')}`;
+  setTimeout(()=>window.print(),300);
+});
+
+/* ---------- 備份 ---------- */
+$('#backupBtn').addEventListener('click',async()=>{
+  const a=await allStories(); if(!a.length){ toast('還沒有唱片可以備份'); return; }
+  toast('正在打包，請稍等…');
+  const out=[]; for(const s of a) out.push({...s,audio:await b64(s.audio),photo:s.photo?await b64(s.photo):null});
+  dl(new Blob([JSON.stringify({app:'life-phono',v:1,elder,stories:out})],{type:'application/json'}),`時光留聲機備份-${elder.name||'家人'}-${new Date().toISOString().slice(0,10)}.json`);
+});
+$('#restoreBtn').addEventListener('click',()=>$('#restoreFile').click());
+$('#restoreFile').addEventListener('change',async e=>{
+  const f=e.target.files[0]; if(!f) return;
+  try{ const d=JSON.parse(await f.text()); if(d.app!=='life-phono') throw 0;
+    const toBlob=u=>fetch(u).then(r=>r.blob());
+    for(const s of d.stories) await putStory({...s,audio:await toBlob(s.audio),photo:s.photo?await toBlob(s.photo):null});
+    if(!elder.name&&d.elder){ elder=d.elder; setMeta('elder',elder); loadElder(); }
+    toast(`已讀入 ${d.stories.length} 張唱片`); renderShelf();
+  }catch(err){ toast('這不是時光留聲機的備份檔'); }
+  e.target.value='';
+});
+
+window.addEventListener('beforeunload',e=>{ if(isRecording()||pending){ e.preventDefault(); e.returnValue=''; } });
+loadElder().then(renderHome);
+navigator.storage?.persist?.();
+</script>
+
+<!-- 公版「錯誤／建議」回報按鈕 -->
+<script>
+window.REPORT_CONTEXT=()=>({item:document.querySelector('section[data-view].on')?.dataset.view||'',itemName:navigator.userAgent.slice(0,200)});
+window.addEventListener('load',()=>{
+  const host=document.querySelector('[data-oth-report]'); if(!host||!host.shadowRoot) return;
+  const st=document.createElement('style');
+  st.textContent=`.fab{width:34px;height:34px;padding:0;gap:0;justify-content:center;font-size:0;opacity:.72;right:14px;
+      box-shadow:0 2px 8px rgba(0,0,0,.14),0 0 0 1.5px #7A4B2A inset;transition:opacity .2s}
+    .fab:hover,.fab:focus-visible{opacity:1;width:auto;padding:0 12px;gap:6px;font-size:12.5px}
+    .fab svg{width:15px;height:15px}`;
+  host.shadowRoot.appendChild(st);
+  const fab=host.shadowRoot.querySelector('.fab'); if(fab){fab.title='回報錯誤或建議';fab.setAttribute('aria-label','回報錯誤或建議');}
+});
+</script>
+<script src="https://mattsue1003.github.io/oth-report-button/report.js" data-site="時光留聲機" data-color="#7A4B2A" data-label="錯誤／建議" data-offset="16" defer></script>
 </body>
 </html>
