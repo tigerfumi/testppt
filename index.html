@@ -1,39 +1,1175 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>歡迎加入愛迪樂｜新進同仁導覽</title>
-<style>
-:root{--coral:#EB6D56;--yellow:#F8C058;--teal:#23B6BC;--ink:#17333B;--muted:#5E7478;--paper:#F7F6F0;--white:#fff;--line:#DDE8E4}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:#102C32;overflow:hidden}.deck{width:100vw;height:100vh;display:grid;place-items:center}.slide{display:none;position:relative;width:min(100vw,177.78vh);height:min(100vh,56.25vw);aspect-ratio:16/9;background:var(--paper);padding:5.3% 6.5% 5.5%;overflow:hidden}.slide.active{display:block;animation:in .32s ease-out}@keyframes in{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}.slide:before{content:"";position:absolute;left:0;top:0;width:12px;height:100%;background:var(--teal)}.slide.cover{color:#fff;background:linear-gradient(125deg,#133D46,#17636B 68%,#21979A)}.slide.cover:before{background:var(--yellow)}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:clamp(11px,1vw,16px);font-weight:800;color:var(--coral);margin-bottom:1.3em}.cover .eyebrow{color:#FFE2A3}.title{font-size:clamp(30px,4.2vw,68px);line-height:1.2;letter-spacing:.02em;margin:0 0 .35em;font-weight:900}.subtitle{font-size:clamp(16px,1.7vw,27px);line-height:1.55;max-width:790px;color:var(--muted)}.cover .subtitle{color:#D9F2ED}.section-title{font-size:clamp(25px,3vw,46px);line-height:1.2;margin:0 0 .3em;font-weight:900}.lead{font-size:clamp(16px,1.45vw,23px);color:var(--muted);margin:0 0 1.4em;line-height:1.5}.grid{display:grid;gap:1.2%;height:67%}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.card{border:1px solid var(--line);background:#fff;border-radius:18px;padding:5.4%;box-shadow:0 9px 24px #143c3c0a;display:flex;flex-direction:column;justify-content:flex-start}.card h3{font-size:clamp(17px,1.65vw,26px);margin:.1em 0 .55em;line-height:1.25}.card p,.card li{font-size:clamp(13px,1.13vw,18px);line-height:1.55;color:var(--muted)}.card p{margin:.2em 0}.icon{font-size:clamp(24px,2.5vw,40px);margin-bottom:.4em}.accent{color:var(--coral);font-weight:800}.pill{display:inline-block;background:#E6F7F4;border-radius:99px;padding:.42em .8em;font-size:clamp(11px,.95vw,15px);font-weight:800;color:#187B7B;margin:.3em .25em .2em 0}.callout{background:#FFF0D4;border-left:7px solid var(--yellow);padding:2.5% 3%;border-radius:12px;font-size:clamp(16px,1.55vw,25px);font-weight:800;line-height:1.5}.row{display:flex;align-items:center;gap:1.4em}.number{font-size:clamp(34px,5vw,76px);font-weight:900;color:var(--coral);line-height:1}.big-quote{font-size:clamp(23px,3.2vw,49px);line-height:1.42;font-weight:900;max-width:1000px}.small{font-size:clamp(11px,.9vw,14px);color:var(--muted);line-height:1.5}.foot{position:absolute;bottom:2.1%;left:6.5%;right:6.5%;display:flex;justify-content:space-between;align-items:center;color:#8AA09E;font-size:clamp(10px,.8vw,13px)}.cover .foot{color:#B6DAD4}.logo{font-weight:900;letter-spacing:.05em}.orb{position:absolute;border-radius:50%;opacity:.18}.orb.one{width:34vw;height:34vw;background:var(--yellow);right:-6vw;top:-11vw}.orb.two{width:18vw;height:18vw;background:var(--coral);right:18vw;bottom:-11vw}.cover-content{position:relative;z-index:1;margin-top:8%}.cover .title{font-size:clamp(46px,6.5vw,98px);max-width:900px}.divider{height:5px;width:90px;background:var(--yellow);margin:2.2em 0}.flow{display:flex;align-items:stretch;gap:1%;height:50%;margin-top:3%}.step{flex:1;background:#fff;border:1px solid var(--line);border-radius:16px;padding:2.5%;position:relative}.step:not(:last-child):after{content:"→";position:absolute;right:-.8em;top:42%;z-index:2;color:var(--coral);font-size:clamp(20px,2vw,32px);font-weight:900}.step b{display:block;font-size:clamp(15px,1.45vw,23px);margin:.6em 0}.step span{color:var(--muted);font-size:clamp(12px,1vw,16px);line-height:1.5}.controls{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;background:#092329cc;padding:7px 10px;border-radius:99px;color:#fff;z-index:10;backdrop-filter:blur(8px)}button{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;padding:6px 10px;border-radius:30px}button:hover{background:#ffffff25}.counter{min-width:64px;text-align:center;font-size:13px}.progress{position:fixed;top:0;left:0;height:4px;background:var(--yellow);z-index:11;transition:width .25s}.notes{display:none}.notes-panel{display:none;position:fixed;right:18px;bottom:68px;width:min(390px,90vw);max-height:45vh;overflow:auto;background:#fff;color:var(--ink);padding:18px 20px;border-radius:14px;box-shadow:0 8px 32px #0004;z-index:12}.notes-panel.show{display:block}.notes-panel h3{margin:0 0 8px}.notes-panel p{line-height:1.55;color:#52686c}.sources a{color:#157e83}.source-list{font-size:clamp(12px,1vw,16px);line-height:1.65}.source-list li{margin:.35em 0}.key{font-weight:800;color:var(--teal)}@media(max-width:700px){.slide{padding:7% 7% 9%}.grid{gap:2%;height:70%}.card{padding:4%}.foot{bottom:1.5%}.flow{gap:1.5%}.step{padding:2%}.slide:before{width:7px}}@media print{html,body{overflow:visible;background:#fff}.deck{display:block;height:auto}.slide,.slide.active{display:block!important;width:100vw;height:56.25vw;page-break-after:always;animation:none}.controls,.progress,.notes-panel{display:none!important}}
-</style></head><body>
-<div class="progress" id="progress"></div><main class="deck" id="deck">
-<section class="slide cover active" data-title="歡迎加入愛迪樂" data-notes="開場：歡迎新同仁加入。今天不只是介紹組織名稱，更希望大家理解我們服務誰、怎麼一起工作，以及每個角色如何讓生活變得更有選擇。">
-<div class="orb one"></div><div class="orb two"></div><div class="cover-content"><div class="eyebrow">NEW TEAM MEMBER ORIENTATION</div><h1 class="title">歡迎加入<br>愛迪樂</h1><div class="divider"></div><p class="subtitle">從治療、長照到社區健康促進<br>一起支持每個人活出更有能量的生活</p><p style="margin-top:3em;font-weight:800;letter-spacing:.08em">新進同仁公司介紹</p></div><div class="foot"><span class="logo">ADLERS · 愛迪樂健康促進團隊</span><span>一起讓專業走進生活</span></div></section>
-<section class="slide" data-title="今天的導覽" data-notes="建議用約 20–30 分鐘介紹，預留交流。可先邀請大家分享：加入愛迪樂前，對我們的印象是什麼？">
-<div class="eyebrow">01 / ORIENTATION</div><h2 class="section-title">今天的導覽</h2><p class="lead">先認識方向，再認識服務與彼此的合作方式。</p><div class="grid g4">
-<div class="card"><div class="icon">🧭</div><h3>我們是誰</h3><p>愛迪樂的初心、服務對象與核心價值</p></div><div class="card"><div class="icon">🧩</div><h3>我們做什麼</h3><p>治療、長照、健康促進與多元合作</p></div><div class="card"><div class="icon">🤝</div><h3>怎麼一起做</h3><p>跨專業合作，讓服務接得起來</p></div><div class="card"><div class="icon">🌱</div><h3>你如何加入</h3><p>新同仁的工作習慣、溝通與成長</p></div></div></section>
-<section class="slide" data-title="愛迪樂是誰" data-notes="網站介紹指出，愛迪樂由治療師、體適能老師、醫療輔具專家等組成，核心是促進銀髮族、失智與失能者的職能表現及生活能量。可說明「職能」是人在生活中想做、需要做與被期待做的事。">
-<div class="eyebrow">02 / OUR PURPOSE</div><h2 class="section-title">愛迪樂是誰？</h2><p class="lead">一群不同專業的人，陪伴人重新連結生活。</p><div class="grid g2"><div class="card" style="justify-content:center"><div class="big-quote">「生活重建、自主管理、自我實現，創造豐富、多元且精彩的生命故事。」</div><p style="margin-top:1.2em">這是我們工作的方向，也是服務設計的起點。</p></div><div class="card"><h3>我們陪伴誰</h3><p><span class="pill">銀髮族</span><span class="pill">失智者</span><span class="pill">失能者</span><span class="pill">家庭照顧者</span><span class="pill">社區與企業</span></p><h3 style="margin-top:1.1em">我們相信</h3><p>每個人都有自己的目標與生活角色。服務不只處理問題，也要看見個人的能力、選擇與重要日常。</p></div></div></section>
-<section class="slide" data-title="我們的服務版圖" data-notes="可用「從個人到家庭、從治療到社區」串起服務。愛迪樂網站目前列出治療所、居家長照、社區長照機構、健康促進和企業教育等服務。">
-<div class="eyebrow">03 / WHAT WE DO</div><h2 class="section-title">我們的服務版圖</h2><p class="lead">從一對一專業介入，到社區與組織合作。</p><div class="grid g3">
-<div class="card"><div class="icon">🩺</div><h3>專業治療</h3><p>物理治療、職能治療、神經復健、肌骨疼痛、認知訓練、步態與生活功能重建。</p></div><div class="card"><div class="icon">🏠</div><h3>長照與居家復能</h3><p>長照諮詢、居家服務、喘息、復能、輔具評估與家庭支持，從個案的生活環境出發。</p></div><div class="card"><div class="icon">🏘️</div><h3>社區健康促進</h3><p>日間照顧、認知促進、體適能、健康衛教、社區活動與特色課程。</p></div><div class="card"><div class="icon">🏢</div><h3>企業與機構合作</h3><p>客製化講座、工作坊、機構活動設計、照顧者與第一線人員教育訓練。</p></div><div class="card"><div class="icon">♿</div><h3>輔具與環境</h3><p>輔具諮詢與評估、無障礙與復健空間建議，讓環境更支持參與。</p></div><div class="card"><div class="icon">💡</div><h3>創新專案</h3><p>以跨域合作設計有趣、可參與、貼近真實生活的健康與復能方案。</p></div></div></section>
-<section class="slide" data-title="從需求到陪伴" data-notes="強調服務不是彼此孤立的項目。遇到超出自己服務範圍的需要，要清楚紀錄、與團隊討論並依流程轉介，讓服務形成連續支持。">
-<div class="eyebrow">04 / HOW SUPPORT CONNECTS</div><h2 class="section-title">從需求到陪伴：服務如何接起來</h2><p class="lead">看見需求、找對方法、連結資源，並追蹤生活中的改變。</p><div class="flow"><div class="step"><div class="number">01</div><b>聽見需求</b><span>個案與家屬在生活中遇到什麼困難？最想恢復什麼？</span></div><div class="step"><div class="number">02</div><b>專業評估</b><span>了解能力、環境、風險與支持系統，確認優先目標。</span></div><div class="step"><div class="number">03</div><b>共同計畫</b><span>治療、復能、照顧、輔具或社區參與，選擇合適路徑。</span></div><div class="step"><div class="number">04</div><b>合作執行</b><span>跨專業、跨場域溝通，讓服務更連續。</span></div><div class="step"><div class="number">05</div><b>回到生活</b><span>檢視功能與參與是否有改變，持續調整並肯定進步。</span></div></div><div class="callout" style="margin-top:2.8%">我們問的不只是「做了什麼服務」，也問：「這讓他的生活多了什麼可能？」</div></section>
-<section class="slide" data-title="長照服務怎麼理解" data-notes="網站介紹林口長照ABC服務：A單位個案管理與資源連結、B單位居家服務或專業服務、C級巷弄長照站的社區支持。各據點實際承作項目和服務區域依官方公告與內部最新資訊為準。">
-<div class="eyebrow">05 / LONG-TERM CARE</div><h2 class="section-title">長照服務：讓支持走進生活現場</h2><p class="lead">熟悉資源架構，才能把需要連結到合適的服務。</p><div class="grid g3"><div class="card"><div class="icon">🧭</div><h3>A｜個案管理與資源連結</h3><p>長照諮詢、申請與需求評估，協助規劃及連結服務。</p><p class="accent">重點：找到適合的支持組合</p></div><div class="card"><div class="icon">🤲</div><h3>B｜居家與專業服務</h3><p>依核定與實際需求提供居家照顧、喘息、專業服務、復能等支持。</p><p class="accent">重點：在熟悉的生活場域練習</p></div><div class="card"><div class="icon">🌿</div><h3>C｜社區據點與日照</h3><p>透過日間照顧、社區關懷、健康促進與活動，支持參與及照顧者喘息。</p><p class="accent">重點：維持連結與日常節奏</p></div></div><p class="small" style="margin-top:1.2em">內部提醒：長照政策、給付規定與服務區域可能調整，實務以主管機關及公司最新作業資訊為準。</p></section>
-<section class="slide" data-title="服務據點與場域" data-notes="簡介網站列出的場域類型。地址、電話、服務內容可能更新，這份新人簡報先說明據點功能概貌；新同仁報到時請以內部聯絡表與網站最新資訊為準。">
-<div class="eyebrow">06 / WHERE WE WORK</div><h2 class="section-title">服務據點與場域</h2><p class="lead">同一個服務理念，會出現在不同的生活場景。</p><div class="grid g4"><div class="card"><div class="icon">🏥</div><h3>治療所</h3><p>個別化物理與職能治療，支持動作、認知與生活功能。</p><span class="pill">台北・中山</span></div><div class="card"><div class="icon">🏡</div><h3>居家長照</h3><p>在家中理解生活情境，提供長照服務、居家復能與輔具支持。</p><span class="pill">新北・林口</span></div><div class="card"><div class="icon">☀️</div><h3>社區日照</h3><p>日間照顧、認知與健康促進課程，建立穩定社區參與。</p><span class="pill">林口・東湖</span></div><div class="card"><div class="icon">🌳</div><h3>成州據點</h3><p>社區長照與身心障礙者日間照顧服務，支持個別生活需求。</p><span class="pill">新北・五股</span></div></div><div class="callout" style="margin-top:2.4%">跨場域工作時，請確認服務對象、聯絡窗口、紀錄方式與安全流程。</div></section>
-<section class="slide" data-title="跨專業是我們的日常" data-notes="網站提到治療師、體適能老師、醫療輔具專家等；服務內容另包括營養、社工等專業。實際編制依單位而定。強調尊重專業界線並共享和個案目標相關的必要資訊。">
-<div class="eyebrow">07 / ONE TEAM</div><h2 class="section-title">跨專業，是我們的日常</h2><p class="lead">專業不同，目標一致：讓服務對象在意的生活更容易發生。</p><div class="grid g4"><div class="card"><div class="icon">🧠</div><h3>職能治療</h3><p>認知、日常活動、上肢功能、輔具與生活參與。</p></div><div class="card"><div class="icon">🏃</div><h3>物理治療</h3><p>動作、肌力、平衡、步態、疼痛與移動能力。</p></div><div class="card"><div class="icon">🍎</div><h3>健康與體適能</h3><p>運動、健康促進、營養與預防延緩活動。</p></div><div class="card"><div class="icon">💬</div><h3>長照與社區團隊</h3><p>個案管理、照顧支持、社區連結與服務協調。</p></div></div><div class="row" style="margin-top:3.2%"><div class="number">+</div><div><h3 style="margin:0 0 .25em;font-size:clamp(18px,1.8vw,28px)">合作的基本功</h3><p class="lead" style="margin:0">共享目標｜尊重專業｜及時回報｜清楚紀錄｜需要時求助</p></div></div></section>
-<section class="slide" data-title="我們如何定義好的服務" data-notes="提出團隊共通的工作原則，可作為新人討論題：哪一項最容易在忙碌時被忽略？請鼓勵及早求助和通報，不鼓勵隱瞞不確定性。">
-<div class="eyebrow">08 / HOW WE WORK</div><h2 class="section-title">好的服務，從好的工作習慣開始</h2><p class="lead">把專業落實在每一次接觸、每一筆紀錄與每一次交接。</p><div class="grid g2"><div class="card"><h3><span class="accent">01</span> 以人為中心</h3><p>先理解個案與家庭在意的事，再設計介入與活動。</p></div><div class="card"><h3><span class="accent">02</span> 安全與尊重</h3><p>尊重選擇、隱私與界線；遇到風險立即依流程處理。</p></div><div class="card"><h3><span class="accent">03</span> 清楚溝通</h3><p>說明目標、做法、觀察與後續安排；重要事項不只口頭交代。</p></div><div class="card"><h3><span class="accent">04</span> 紀錄可接手</h3><p>寫下客觀觀察、服務內容、反應與下一步，讓團隊接得起來。</p></div><div class="card"><h3><span class="accent">05</span> 遇到不確定就討論</h3><p>及早詢問主管或相關專業，不把疑問留到問題擴大。</p></div><div class="card"><h3><span class="accent">06</span> 持續學習與回饋</h3><p>把現場經驗整理成團隊知識，一起讓服務更好。</p></div></div></section>
-<section class="slide" data-title="新同仁的第一步" data-notes="這張是通用新人導引，請帶領者依各單位實際報到流程補上人事、系統、督導、緊急聯絡等細節。">
-<div class="eyebrow">09 / YOUR FIRST WEEKS</div><h2 class="section-title">新同仁的第一步</h2><p class="lead">不需要第一天就知道所有答案；先知道去哪裡找答案。</p><div class="grid g3"><div class="card"><div class="number">1</div><h3>認識團隊與窗口</h3><p>確認直屬主管、督導、行政窗口、跨專業聯繫方式與緊急流程。</p></div><div class="card"><div class="number">2</div><h3>熟悉服務流程</h3><p>了解個案流程、排班與出勤、紀錄系統、個資保護及通報規範。</p></div><div class="card"><div class="number">3</div><h3>從觀察與回饋開始</h3><p>跟著團隊了解服務現場，記下問題，定期討論並逐步承接工作。</p></div></div><div class="callout" style="margin-top:3%">帶著三個問題開始：我服務的對象最在意什麼？我需要和誰合作？我遇到狀況要向誰回報？</div></section>
-<section class="slide" data-title="一起把專業變成生活的可能" data-notes="收尾可以邀請每位新人分享：你希望在愛迪樂帶來什麼改變？感謝加入，介紹網站與內部窗口。">
-<div class="eyebrow">10 / WELCOME ABOARD</div><h2 class="section-title">一起把專業，變成生活的可能</h2><p class="lead">每一次陪伴，都可能讓一個人重新做到重要的事。</p><div class="grid g2"><div class="card" style="justify-content:center"><div class="big-quote">讓生活有選擇，<br>讓每個人都能參與。</div></div><div class="card" style="justify-content:center"><h3>歡迎加入愛迪樂</h3><p>期待和你一起學習、合作，也一起看見每一份微小但真實的進步。</p><p style="margin-top:1.2em"><a href="https://adlers.tw/" target="_blank" rel="noopener" style="color:#16858A;font-weight:900">adlers.tw ↗</a></p></div></div></section>
-<section class="slide sources" data-title="資料來源與編輯說明" data-notes="本簡報為新人導覽用途。公司網站內容可能更新，正式訓練請搭配最新內部制度、服務流程與人事資料。避免把舊網站資訊當成最新規範。">
-<div class="eyebrow">REFERENCE</div><h2 class="section-title">資料來源與編輯說明</h2><p class="lead">本簡報依愛迪樂官方網站公開資訊整理，內容供新進同仁導覽使用。</p><ul class="source-list"><li><a href="https://adlers.tw/" target="_blank" rel="noopener">愛迪樂官方網站首頁</a>｜品牌介紹、服務概況與聯絡資訊</li><li><a href="https://adlers.tw/about-alders/" target="_blank" rel="noopener">關於愛迪樂</a>｜團隊理念與服務定位</li><li><a href="https://adlers.tw/service/" target="_blank" rel="noopener">愛迪樂健康促進團隊服務項目</a>｜健康促進、治療、長照、教育訓練與機構服務</li><li><a href="https://adlers.tw/%E9%95%B7%E7%85%A7abc%E4%B8%80%E7%AB%99%E5%BC%8F%E6%9C%8D%E5%8B%99/" target="_blank" rel="noopener">長照ABC一站式服務</a>｜林口長照服務模式</li><li><a href="https://adlers.tw/where-us/" target="_blank" rel="noopener">服務據點</a>｜公開據點資訊</li></ul><div class="callout" style="margin-top:3%">正式使用前，請由公司窗口確認組織名稱、據點、聯絡資料、內部制度與新人報到流程是否需要更新。</div></section>
-</main><div class="controls"><button id="prev" aria-label="上一張">←</button><span class="counter" id="counter">1 / 12</span><button id="next" aria-label="下一張">→</button><button id="notesBtn" title="講者備註">備註</button><button id="fsBtn" title="全螢幕">⛶</button><button onclick="window.print()" title="列印或另存 PDF">列印</button></div><aside class="notes-panel" id="notesPanel"><h3 id="notesTitle">講者備註</h3><p id="notesText"></p></aside>
-<script>
-const slides=[...document.querySelectorAll('.slide')];let index=0;const counter=document.getElementById('counter'),progress=document.getElementById('progress');function show(i){index=(i+slides.length)%slides.length;slides.forEach((s,n)=>s.classList.toggle('active',n===index));counter.textContent=`${index+1} / ${slides.length}`;progress.style.width=`${(index+1)/slides.length*100}%`;document.getElementById('notesTitle').textContent=slides[index].dataset.title||'講者備註';document.getElementById('notesText').textContent=slides[index].dataset.notes||'此頁無講者備註。'}document.getElementById('prev').onclick=()=>show(index-1);document.getElementById('next').onclick=()=>show(index+1);document.getElementById('notesBtn').onclick=()=>document.getElementById('notesPanel').classList.toggle('show');document.getElementById('fsBtn').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};document.addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();show(index+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key.toLowerCase()==='n')document.getElementById('notesPanel').classList.toggle('show');if(e.key==='Escape')document.getElementById('notesPanel').classList.remove('show')});let x0=null;document.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});document.addEventListener('touchend',e=>{if(x0===null)return;let dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>55)show(index+(dx<0?1:-1));x0=null},{passive:true});show(0);
-</script></body></html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>歡樂草原！4x4 打地鼠大冒險</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: 圓潤活潑字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zen Maru Gothic', 'Fredoka One', cursive, sans-serif;
+            background: linear-gradient(180deg, #7ad8ff 0%, #bcf279 55%, #66b532 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* 活潑雲朵飄動動畫 */
+        @keyframes cloudFloat {
+            0% { transform: translateX(-150px); }
+            100% { transform: translateX(calc(100vw + 150px)); }
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 9999px;
+            filter: drop-shadow(0 8px 6px rgba(0,0,0,0.06));
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .cloud-1 {
+            width: 130px; height: 45px; top: 25px;
+            animation: cloudFloat 28s linear infinite;
+        }
+        .cloud-2 {
+            width: 90px; height: 32px; top: 80px;
+            animation: cloudFloat 38s linear infinite 10s;
+        }
+
+        /* 自訂木槌游標 (電腦端) */
+        @media (hover: hover) and (pointer: fine) {
+            .game-field {
+                cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g transform="rotate(25 24 24)"><rect x="21" y="16" width="6" height="28" rx="3" fill="%23b45309" stroke="%2378350f" stroke-width="2"/><rect x="8" y="6" width="32" height="15" rx="5" fill="%23ef4444" stroke="%23991b1b" stroke-width="2.5"/><rect x="11" y="9" width="6" height="9" rx="2" fill="%23fca5a5"/></g></svg>') 12 12, auto;
+            }
+        }
+
+        /* 洞穴與遮罩結構 */
+        .hole-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* 1:1 正方形比例 */
+        }
+
+        .hole-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            border-radius: 50% / 35%;
+        }
+
+        /* 泥土洞穴邊緣立體感 */
+        .dirt-mound {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at 50% 65%, #3e2211 0%, #683b17 50%, #9a5b23 85%);
+            box-shadow: inset 0 10px 14px rgba(0, 0, 0, 0.7), 0 8px 12px rgba(35, 78, 15, 0.35);
+            border: 4px solid #4a270d;
+        }
+
+        /* 地鼠本體與彈出動畫 */
+        .mole-actor {
+            position: absolute;
+            left: 50%;
+            bottom: -110%;
+            transform: translateX(-50%);
+            width: 86%;
+            height: 95%;
+            transition: bottom 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .mole-actor.up {
+            bottom: -5%;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .mole-actor.hit {
+            transition: transform 0.12s ease-out;
+            transform: translateX(-50%) scale(0.85) rotate(-8deg);
+        }
+
+        /* 敲擊跳出金幣或數字動效 */
+        @keyframes floatUpFade {
+            0% { opacity: 0; transform: translateY(0) scale(0.6); }
+            30% { opacity: 1; transform: translateY(-25px) scale(1.3); }
+            100% { opacity: 0; transform: translateY(-55px) scale(1); }
+        }
+
+        .floating-score {
+            position: absolute;
+            animation: floatUpFade 0.8s ease-out forwards;
+            font-weight: 900;
+            pointer-events: none;
+            z-index: 30;
+            text-shadow: 0 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+
+        /* 敲擊槌子撞擊動效 */
+        @keyframes hammerSmash {
+            0% { transform: scale(1.3) rotate(-25deg); opacity: 1; }
+            45% { transform: scale(0.9) rotate(20deg); opacity: 1; }
+            100% { transform: scale(0.7) rotate(0deg); opacity: 0; }
+        }
+
+        .hammer-fx {
+            position: absolute;
+            width: 75px;
+            height: 75px;
+            pointer-events: none;
+            z-index: 40;
+            transform-origin: bottom right;
+            animation: hammerSmash 0.28s ease-out forwards;
+        }
+
+        /* 星星四散特效 */
+        @keyframes starBurst {
+            0% { transform: translate(0, 0) scale(0.2) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(200deg); opacity: 0; }
+        }
+
+        .star-particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            z-index: 35;
+            animation: starBurst 0.5s ease-out forwards;
+        }
+
+        /* 草叢裝飾 */
+        .grass-tuft {
+            position: absolute;
+            bottom: -6px;
+            width: 100%;
+            height: 26px;
+            background-repeat: repeat-x;
+            pointer-events: none;
+            z-index: 8;
+        }
+
+        /* 3D 按鈕立體效果 */
+        .btn-3d {
+            transition: all 0.1s ease;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.25);
+        }
+        .btn-3d:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-start p-2 sm:p-4 min-h-screen text-slate-800">
+
+    <!-- 背景動態白雲 -->
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+
+    <!-- 主遊戲容器 -->
+    <div class="w-full max-w-xl mx-auto flex flex-col items-center z-10">
+
+        <!-- 標題與音效控制列 -->
+        <header class="w-full flex justify-between items-center mb-2 px-2">
+            <div class="flex items-center gap-2">
+                <span class="text-3xl sm:text-4xl filter drop-shadow">🐾</span>
+                <h1 class="text-2xl sm:text-3xl font-black text-amber-900 tracking-wider drop-shadow-md">
+                    歡樂 4×4 打地鼠
+                </h1>
+            </div>
+            
+            <button id="soundToggleBtn" class="bg-amber-100 hover:bg-amber-200 border-2 border-amber-800 text-amber-900 px-3 py-1.5 rounded-full text-sm font-bold flex items-center gap-1.5 shadow transition">
+                <span id="soundIcon" class="text-base">🔊</span>
+                <span id="soundText" class="hidden sm:inline">音效開</span>
+            </button>
+        </header>
+
+        <!-- 設定儀表板 (時間、難度) -->
+        <div class="w-full bg-white/85 backdrop-blur-md rounded-2xl p-3 sm:p-4 shadow-lg border-2 border-green-600/30 mb-3">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs sm:text-sm font-bold">
+                <!-- 時間選單 -->
+                <div class="flex flex-col">
+                    <label class="text-slate-600 mb-1 flex items-center gap-1">⏱️ 遊戲時間</label>
+                    <select id="timeSelect" class="bg-emerald-50 border-2 border-emerald-400 rounded-xl p-1.5 text-emerald-900 font-extrabold focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <option value="60">60 秒 (標準)</option>
+                        <option value="90">90 秒 (暢快)</option>
+                        <option value="120">120 秒 (馬拉松)</option>
+                    </select>
+                </div>
+
+                <!-- 難易度選擇 -->
+                <div class="flex flex-col">
+                    <label class="text-slate-600 mb-1 flex items-center gap-1">⚡ 挑戰難度</label>
+                    <select id="diffSelect" class="bg-amber-50 border-2 border-amber-400 rounded-xl p-1.5 text-amber-900 font-extrabold focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        <option value="easy">輕鬆模式 (慢速)</option>
+                        <option value="normal" selected>普通模式 (標準)</option>
+                        <option value="hard">狂暴地獄 (極速+炸彈)</option>
+                    </select>
+                </div>
+
+                <!-- 歷史最高紀錄 -->
+                <div class="flex flex-col justify-center items-center bg-orange-100/80 rounded-xl p-1.5 border border-orange-300">
+                    <span class="text-orange-700 text-[11px] font-semibold">🏆 歷史最高分</span>
+                    <span id="bestScoreText" class="text-base sm:text-lg font-black text-orange-900">0</span>
+                </div>
+
+                <!-- 命中率 -->
+                <div class="flex flex-col justify-center items-center bg-sky-100/80 rounded-xl p-1.5 border border-sky-300">
+                    <span class="text-sky-700 text-[11px] font-semibold">🎯 揮擊命中率</span>
+                    <span id="accuracyText" class="text-base sm:text-lg font-black text-sky-900">100%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 即時狀態看板 (分數、倒數、連擊) -->
+        <div class="w-full flex items-center justify-between gap-2 mb-3">
+            <!-- 當前分數 -->
+            <div class="flex-1 bg-gradient-to-r from-amber-400 to-yellow-300 rounded-2xl py-2 px-3 text-center border-b-4 border-amber-600 shadow-md">
+                <div class="text-[11px] font-black text-amber-900 uppercase tracking-wider">SCORE 分數</div>
+                <div id="currentScore" class="text-2xl sm:text-3xl font-black text-amber-950">0</div>
+            </div>
+
+            <!-- 倒數時間 -->
+            <div class="flex-1 bg-gradient-to-r from-rose-500 to-pink-500 rounded-2xl py-2 px-3 text-center border-b-4 border-rose-700 shadow-md text-white">
+                <div class="text-[11px] font-black text-rose-100 uppercase tracking-wider">TIME 剩餘</div>
+                <div id="timeLeftDisplay" class="text-2xl sm:text-3xl font-black tracking-tight">60s</div>
+            </div>
+
+            <!-- 連擊 Combo -->
+            <div class="flex-1 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl py-2 px-3 text-center border-b-4 border-purple-800 shadow-md text-white">
+                <div class="text-[11px] font-black text-purple-200 uppercase tracking-wider">COMBO 連擊</div>
+                <div id="comboDisplay" class="text-2xl sm:text-3xl font-black text-yellow-300 animate-pulse">0</div>
+            </div>
+        </div>
+
+        <!-- 4x4 遊戲地圖主網格 -->
+        <div class="w-full bg-gradient-to-b from-[#5fb628] to-[#448b17] p-3 sm:p-4 rounded-3xl shadow-2xl border-4 border-[#336811] relative game-field">
+            <!-- 草地裝飾小花小草 -->
+            <div class="absolute top-2 left-4 text-xs select-none opacity-80">🌼</div>
+            <div class="absolute top-2 right-4 text-xs select-none opacity-80">🌸</div>
+            <div class="absolute bottom-2 left-6 text-xs select-none opacity-80">🍀</div>
+            <div class="absolute bottom-2 right-6 text-xs select-none opacity-80">🌼</div>
+
+            <!-- 16個洞 (4x4) -->
+            <div id="gridBoard" class="grid grid-cols-4 gap-2 sm:gap-3.5 relative z-10">
+                <!-- Javascript 動態生成 16 個洞穴 -->
+            </div>
+        </div>
+
+        <!-- 下方控制按鈕區 -->
+        <div class="w-full flex items-center justify-center gap-3 mt-4">
+            <button id="startBtn" class="btn-3d flex-1 py-3 px-6 bg-gradient-to-b from-green-400 to-green-600 text-white rounded-2xl font-black text-lg sm:text-xl border-b-4 border-green-800 tracking-wider flex items-center justify-center gap-2">
+                <span>▶️</span> 開始遊戲
+            </button>
+            <button id="pauseBtn" disabled class="btn-3d py-3 px-5 bg-gradient-to-b from-amber-400 to-amber-600 text-white rounded-2xl font-black text-lg border-b-4 border-amber-800 disabled:opacity-40 disabled:cursor-not-allowed">
+                ⏸️ 暫停
+            </button>
+            <button id="resetBtn" class="btn-3d py-3 px-5 bg-gradient-to-b from-slate-400 to-slate-600 text-white rounded-2xl font-black text-lg border-b-4 border-slate-800">
+                🔄 重置
+            </button>
+        </div>
+
+        <!-- 角色介紹小提示 -->
+        <div class="w-full mt-4 flex items-center justify-around bg-black/20 backdrop-blur-sm rounded-xl py-2 px-3 text-xs font-bold text-white shadow-inner">
+            <span class="flex items-center gap-1">🐹 普通 (+100)</span>
+            <span class="flex items-center gap-1">👑 金鼠 (+300)</span>
+            <span class="flex items-center gap-1">💣 炸彈 (-200 / 斷Combo)</span>
+        </div>
+    </div>
+
+    <!-- 結算彈窗 Modal -->
+    <div id="resultModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-gradient-to-b from-amber-50 to-orange-100 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center border-4 border-amber-500 shadow-2xl transform transition-all scale-95">
+            <div id="modalEmoji" class="text-5xl sm:text-6xl mb-2 animate-bounce">🎉</div>
+            <h2 id="modalTitle" class="text-2xl sm:text-3xl font-black text-amber-950 mb-1">時間到！遊戲結束</h2>
+            <p id="modalSub" class="text-sm text-amber-800 mb-4">做得好！看看你的戰果：</p>
+
+            <div class="bg-white/80 rounded-2xl p-4 mb-5 border-2 border-amber-300 space-y-2 text-sm font-bold text-slate-700">
+                <div class="flex justify-between border-b pb-1.5">
+                    <span>最終得分：</span>
+                    <span id="finalScore" class="text-xl font-black text-amber-600">0</span>
+                </div>
+                <div class="flex justify-between border-b pb-1.5">
+                    <span>最高連擊 (Max Combo)：</span>
+                    <span id="finalMaxCombo" class="text-indigo-600 font-extrabold">0 連擊</span>
+                </div>
+                <div class="flex justify-between border-b pb-1.5">
+                    <span>揮擊總次數 / 命中：</span>
+                    <span id="finalHitsInfo" class="text-slate-800">0 / 0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>揮擊命中率：</span>
+                    <span id="finalAccuracy" class="text-emerald-600 font-extrabold">0%</span>
+                </div>
+            </div>
+
+            <button id="modalPlayAgainBtn" class="btn-3d w-full py-3 bg-gradient-to-b from-green-500 to-green-600 text-white rounded-2xl font-black text-lg border-b-4 border-green-800 tracking-wider">
+                再玩一次 🚀
+            </button>
+        </div>
+    </div>
+
+    <!-- 簡易消息 Toast -->
+    <div id="toast" class="fixed top-5 bg-amber-900 text-white font-bold px-4 py-2 rounded-full shadow-lg transition-all duration-300 opacity-0 pointer-events-none transform -translate-y-4 z-50 text-sm">
+        提示訊息
+    </div>
+
+    <!-- 程式邏輯主腳本 -->
+    <script>
+        /* ==============================================================
+           1. Web Audio API 音效合成引擎 (免加載外源聲音檔)
+           ============================================================== */
+        class SoundEngine {
+            constructor() {
+                this.ctx = null;
+                this.muted = false;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioContext();
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            // 地鼠冒出聲 (軟萌 Pop 泡泡聲)
+            playPop() {
+                if (this.muted) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(320, now);
+                osc.frequency.exponentialRampToValueAtTime(750, now + 0.08);
+
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.08);
+            }
+
+            // 成功敲擊普通地鼠 (清脆打擊 + 得分高音)
+            playHit() {
+                if (this.muted) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                
+                // 1. 打擊低頻震盪 (咚)
+                const oscPunch = this.ctx.createOscillator();
+                const gainPunch = this.ctx.createGain();
+                oscPunch.type = 'triangle';
+                oscPunch.frequency.setValueAtTime(260, now);
+                oscPunch.frequency.exponentialRampToValueAtTime(60, now + 0.12);
+
+                gainPunch.gain.setValueAtTime(0.4, now);
+                gainPunch.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+
+                oscPunch.connect(gainPunch);
+                gainPunch.connect(this.ctx.destination);
+                oscPunch.start(now);
+                oscPunch.stop(now + 0.12);
+
+                // 2. 得分清脆音 (叮)
+                const oscDing = this.ctx.createOscillator();
+                const gainDing = this.ctx.createGain();
+                oscDing.type = 'sine';
+                oscDing.frequency.setValueAtTime(880, now + 0.02);
+                oscDing.frequency.exponentialRampToValueAtTime(1320, now + 0.18);
+
+                gainDing.gain.setValueAtTime(0.25, now + 0.02);
+                gainDing.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+
+                oscDing.connect(gainDing);
+                gainDing.connect(this.ctx.destination);
+                oscDing.start(now + 0.02);
+                oscDing.stop(now + 0.2);
+            }
+
+            // 金鼠獎勵敲擊 (雙音歡樂鈴聲)
+            playGold() {
+                if (this.muted) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                const freqs = [1046.5, 1318.5, 1567.98, 2093.0]; // C6, E6, G6, C7
+                
+                freqs.forEach((freq, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    const startTime = now + idx * 0.05;
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, startTime);
+
+                    gain.gain.setValueAtTime(0.25, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.22);
+
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.22);
+                });
+            }
+
+            // 敲中炸彈 (低沉爆炸與失誤警報音)
+            playBomb() {
+                if (this.muted) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                
+                // 低頻雜訊爆炸模擬
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(180, now);
+                osc.frequency.exponentialRampToValueAtTime(30, now + 0.35);
+
+                gain.gain.setValueAtTime(0.45, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            }
+
+            // 揮棒落空聲 (呼的風聲感)
+            playMiss() {
+                if (this.muted) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(380, now);
+                osc.frequency.exponentialRampToValueAtTime(160, now + 0.07);
+
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.07);
+            }
+
+            // 遊戲通關歡呼琶音
+            playWin() {
+                if (this.muted) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                const chord = [523.25, 659.25, 783.99, 1046.5]; // C E G C
+                chord.forEach((freq, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    const t = now + idx * 0.12;
+
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, t);
+
+                    gain.gain.setValueAtTime(0.3, t);
+                    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(t);
+                    osc.stop(t + 0.45);
+                });
+            }
+        }
+
+        const sound = new SoundEngine();
+
+        /* ==============================================================
+           2. SVG 向量角色立繪模版 (原生SVG無外部圖床，保證不破圖)
+           ============================================================== */
+        // 普通棕色可愛小地鼠
+        const NORMAL_MOLE_SVG = `
+        <svg viewBox="0 0 100 115" class="w-full h-full drop-shadow-md">
+            <!-- 身體圓拱 -->
+            <path d="M15 115 C15 45, 85 45, 85 115 Z" fill="#925828" stroke="#5c3413" stroke-width="4"/>
+            <path d="M25 115 C25 65, 75 65, 75 115 Z" fill="#d79b65" opacity="0.6"/>
+            <!-- 圓圓耳朵 -->
+            <circle cx="22" cy="52" r="13" fill="#925828" stroke="#5c3413" stroke-width="3"/>
+            <circle cx="22" cy="52" r="7" fill="#fca5a5"/>
+            <circle cx="78" cy="52" r="13" fill="#925828" stroke="#5c3413" stroke-width="3"/>
+            <circle cx="78" cy="52" r="7" fill="#fca5a5"/>
+            <!-- 大眼睛 -->
+            <ellipse cx="38" cy="65" rx="5.5" ry="7" fill="#1e293b"/>
+            <circle cx="36" cy="63" r="2.5" fill="#ffffff"/>
+            <ellipse cx="62" cy="65" rx="5.5" ry="7" fill="#1e293b"/>
+            <circle cx="60" cy="63" r="2.5" fill="#ffffff"/>
+            <!-- 粉紅害羞腮紅 -->
+            <ellipse cx="28" cy="76" rx="6" ry="4" fill="#f87171" opacity="0.65"/>
+            <ellipse cx="72" cy="76" rx="6" ry="4" fill="#f87171" opacity="0.65"/>
+            <!-- 鼻子 -->
+            <ellipse cx="50" cy="72" rx="7" ry="5" fill="#311706"/>
+            <!-- 齙牙與嘴巴 -->
+            <rect x="46.5" y="77" width="7" height="6" rx="1.5" fill="#ffffff" stroke="#5c3413" stroke-width="1.5"/>
+            <path d="M44 76 Q50 82 56 76" fill="none" stroke="#311706" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 可愛爪子 -->
+            <ellipse cx="28" cy="108" rx="8" ry="5" fill="#d79b65" stroke="#5c3413" stroke-width="2"/>
+            <ellipse cx="72" cy="108" rx="8" ry="5" fill="#d79b65" stroke="#5c3413" stroke-width="2"/>
+        </svg>
+        `;
+
+        // 戴皇冠黃金獎勵地鼠 (+300 分)
+        const GOLD_MOLE_SVG = `
+        <svg viewBox="0 0 100 115" class="w-full h-full drop-shadow-lg filter drop-shadow(0 0 8px rgba(234,179,8,0.7))">
+            <!-- 閃亮黃金身體 -->
+            <path d="M15 115 C15 45, 85 45, 85 115 Z" fill="#eab308" stroke="#a16207" stroke-width="4"/>
+            <path d="M25 115 C25 65, 75 65, 75 115 Z" fill="#fde047" opacity="0.85"/>
+            <!-- 耳朵 -->
+            <circle cx="22" cy="52" r="13" fill="#ca8a04" stroke="#854d0e" stroke-width="3"/>
+            <circle cx="22" cy="52" r="7" fill="#fef08a"/>
+            <circle cx="78" cy="52" r="13" fill="#ca8a04" stroke="#854d0e" stroke-width="3"/>
+            <circle cx="78" cy="52" r="7" fill="#fef08a"/>
+            <!-- 金色皇冠 -->
+            <polygon points="34,42 42,24 50,34 58,24 66,42" fill="#f59e0b" stroke="#78350f" stroke-width="2.5"/>
+            <circle cx="42" cy="24" r="2.5" fill="#ef4444"/>
+            <circle cx="58" cy="24" r="2.5" fill="#ef4444"/>
+            <circle cx="50" cy="17" r="3" fill="#3b82f6"/>
+            <!-- 水汪汪大眼睛 -->
+            <ellipse cx="38" cy="65" rx="6" ry="7.5" fill="#0f172a"/>
+            <circle cx="36" cy="62.5" r="2.5" fill="#ffffff"/>
+            <circle cx="39.5" cy="67.5" r="1.2" fill="#ffffff"/>
+            <ellipse cx="62" cy="65" rx="6" ry="7.5" fill="#0f172a"/>
+            <circle cx="60" cy="62.5" r="2.5" fill="#ffffff"/>
+            <circle cx="63.5" cy="67.5" r="1.2" fill="#ffffff"/>
+            <!-- 腮紅與嘴巴 -->
+            <ellipse cx="28" cy="76" rx="6" ry="4" fill="#fb923c" opacity="0.8"/>
+            <ellipse cx="72" cy="76" rx="6" ry="4" fill="#fb923c" opacity="0.8"/>
+            <ellipse cx="50" cy="72" rx="6" ry="4.5" fill="#78350f"/>
+            <rect x="47" y="76.5" width="6" height="5" rx="1.5" fill="#ffffff" stroke="#78350f" stroke-width="1.2"/>
+        </svg>
+        `;
+
+        // 搗蛋炸彈 (-200 分且重置 Combo)
+        const BOMB_MOLE_SVG = `
+        <svg viewBox="0 0 100 115" class="w-full h-full drop-shadow-md">
+            <!-- 導火線與火花 -->
+            <path d="M50 32 Q58 18 68 15" fill="none" stroke="#78350f" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="69" cy="14" r="4.5" fill="#f59e0b" class="animate-ping"/>
+            <circle cx="69" cy="14" r="3" fill="#ef4444"/>
+            <!-- 圓形黑色炸彈身體 -->
+            <circle cx="50" cy="72" r="38" fill="#1e293b" stroke="#090d16" stroke-width="4"/>
+            <!-- 炸彈頂部引信頭 -->
+            <rect x="42" y="30" width="16" height="8" rx="2" fill="#64748b" stroke="#0f172a" stroke-width="2"/>
+            <!-- 邪惡紅色眼睛 (怒目) -->
+            <polygon points="32,60 45,67 35,71" fill="#ef4444"/>
+            <polygon points="68,60 55,67 65,71" fill="#ef4444"/>
+            <circle cx="39" cy="67" r="1.8" fill="#ffffff"/>
+            <circle cx="61" cy="67" r="1.8" fill="#ffffff"/>
+            <!-- 咧嘴壞笑 (鋸齒牙齒) -->
+            <path d="M36 82 Q50 94 64 82" fill="#dc2626" stroke="#000" stroke-width="2.5"/>
+            <polygon points="42,83 45,87 48,83" fill="#ffffff"/>
+            <polygon points="52,83 55,87 58,83" fill="#ffffff"/>
+        </svg>
+        `;
+
+        // 被敲暈的表情 (暈頭轉向螺旋眼)
+        const DIZZY_MOLE_SVG = `
+        <svg viewBox="0 0 100 115" class="w-full h-full drop-shadow-md">
+            <path d="M15 115 C15 45, 85 45, 85 115 Z" fill="#78431b" stroke="#452309" stroke-width="4"/>
+            <!-- 耳朵垂下 -->
+            <circle cx="20" cy="60" r="11" fill="#78431b" stroke="#452309" stroke-width="2.5"/>
+            <circle cx="80" cy="60" r="11" fill="#78431b" stroke="#452309" stroke-width="2.5"/>
+            <!-- 螺旋暈暈眼 (X眼) -->
+            <text x="31" y="70" font-size="19" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+            <text x="69" y="70" font-size="19" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+            <ellipse cx="50" cy="75" rx="6" ry="4" fill="#311706"/>
+            <!-- 波浪吐舌嘴巴 -->
+            <path d="M42 84 Q46 80 50 84 Q54 88 58 84" fill="none" stroke="#261003" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="53" cy="89" rx="4" ry="4.5" fill="#f87171"/>
+        </svg>
+        `;
+
+        /* ==============================================================
+           3. 遊戲狀態與核心邏輯
+           ============================================================== */
+        const TOTAL_HOLES = 16;
+        let score = 0;
+        let timeLeft = 60;
+        let selectedDuration = 60;
+        let combo = 0;
+        let maxCombo = 0;
+        let totalSwings = 0;
+        let totalHits = 0;
+
+        let isPlaying = false;
+        let isPaused = false;
+        let timerInterval = null;
+        let moleSpawnTimeout = null;
+
+        // 難易度設定參數
+        const DIFFICULTY_SETTINGS = {
+            easy: {
+                stayMin: 1200, stayMax: 1500,
+                spawnIntervalMin: 700, spawnIntervalMax: 1100,
+                maxSimultaneous: 2,
+                goldChance: 0.15,
+                bombChance: 0.05
+            },
+            normal: {
+                stayMin: 800, stayMax: 1100,
+                spawnIntervalMin: 500, spawnIntervalMax: 800,
+                maxSimultaneous: 3,
+                goldChance: 0.18,
+                bombChance: 0.14
+            },
+            hard: {
+                stayMin: 500, stayMax: 750,
+                spawnIntervalMin: 350, spawnIntervalMax: 600,
+                maxSimultaneous: 4,
+                goldChance: 0.20,
+                bombChance: 0.28
+            }
+        };
+
+        // 紀錄目前每個洞的狀態
+        // status: 'empty' | 'up' | 'hit'
+        // type: 'normal' | 'gold' | 'bomb'
+        const holesState = Array.from({ length: TOTAL_HOLES }, () => ({
+            status: 'empty',
+            type: 'normal',
+            hideTimeout: null
+        }));
+
+        // DOM 元素引用
+        const gridBoard = document.getElementById('gridBoard');
+        const currentScoreEl = document.getElementById('currentScore');
+        const timeLeftDisplay = document.getElementById('timeLeftDisplay');
+        const comboDisplay = document.getElementById('comboDisplay');
+        const accuracyText = document.getElementById('accuracyText');
+        const bestScoreText = document.getElementById('bestScoreText');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const timeSelect = document.getElementById('timeSelect');
+        const diffSelect = document.getElementById('diffSelect');
+        const soundToggleBtn = document.getElementById('soundToggleBtn');
+        const soundIcon = document.getElementById('soundIcon');
+        const soundText = document.getElementById('soundText');
+        const resultModal = document.getElementById('resultModal');
+        const modalPlayAgainBtn = document.getElementById('modalPlayAgainBtn');
+        const toast = document.getElementById('toast');
+
+        /* ==============================================================
+           4. 棋盤初始化與事件綁定
+           ============================================================== */
+        function initBoard() {
+            gridBoard.innerHTML = '';
+            for (let i = 0; i < TOTAL_HOLES; i++) {
+                const holeWrapper = document.createElement('div');
+                holeWrapper.className = 'hole-wrapper';
+
+                // 洞穴內部容器與泥土造型
+                holeWrapper.innerHTML = `
+                    <div class="dirt-mound"></div>
+                    <div class="hole-container">
+                        <div id="mole-${i}" class="mole-actor" data-index="${i}">
+                            ${NORMAL_MOLE_SVG}
+                        </div>
+                    </div>
+                    <!-- 前景草邊邊緣 -->
+                    <div class="grass-tuft flex justify-between items-end px-1">
+                        <span class="text-green-700 text-xs font-black">▲</span>
+                        <span class="text-green-600 text-[10px] font-black">▲</span>
+                        <span class="text-green-700 text-xs font-black">▲</span>
+                    </div>
+                `;
+
+                // 監聽敲擊 (支援 Mouse 與 Touch)
+                const moleActor = holeWrapper.querySelector(`#mole-${i}`);
+                
+                // 點擊地鼠
+                moleActor.addEventListener('pointerdown', (e) => {
+                    e.stopPropagation(); // 避免觸發揮空
+                    handleMoleHit(i, e);
+                });
+
+                // 點擊洞穴周圍 (揮空)
+                holeWrapper.addEventListener('pointerdown', (e) => {
+                    handleBoardSwing(e);
+                });
+
+                gridBoard.appendChild(holeWrapper);
+            }
+
+            // 讀取最高分
+            updateBestScoreDisplay();
+        }
+
+        // 畫面點擊總次數累加與命中率計算
+        function handleBoardSwing(e) {
+            if (!isPlaying || isPaused) return;
+            totalSwings++;
+            updateStatsUI();
+            sound.playMiss();
+            showHammerEffect(e.clientX, e.clientY);
+        }
+
+        // 敲擊地鼠處理
+        function handleMoleHit(index, e) {
+            if (!isPlaying || isPaused) return;
+            
+            const hole = holesState[index];
+            if (hole.status !== 'up') return; // 已縮回或已打擊過
+
+            totalSwings++;
+            totalHits++;
+            hole.status = 'hit';
+            clearTimeout(hole.hideTimeout);
+
+            const moleElem = document.getElementById(`mole-${index}`);
+            moleElem.classList.add('hit');
+
+            // 槌子擊打視覺特效
+            showHammerEffect(e.clientX, e.clientY);
+
+            if (hole.type === 'bomb') {
+                // 敲到炸彈！
+                combo = 0;
+                const penalty = 200;
+                score = Math.max(0, score - penalty);
+                sound.playBomb();
+                showFloatingText(e.clientX, e.clientY, `-${penalty} 💣`, '#ef4444');
+                createExplosionStars(e.clientX, e.clientY, '#475569');
+            } else if (hole.type === 'gold') {
+                // 敲中黃金地鼠！
+                combo++;
+                if (combo > maxCombo) maxCombo = combo;
+                const comboBonus = Math.floor(combo / 5) * 50;
+                const earned = 300 + comboBonus;
+                score += earned;
+                sound.playGold();
+                showFloatingText(e.clientX, e.clientY, `+${earned} 👑`, '#eab308');
+                createExplosionStars(e.clientX, e.clientY, '#facc15');
+            } else {
+                // 普通地鼠
+                combo++;
+                if (combo > maxCombo) maxCombo = combo;
+                const comboBonus = Math.floor(combo / 5) * 30;
+                const earned = 100 + comboBonus;
+                score += earned;
+                sound.playHit();
+                showFloatingText(e.clientX, e.clientY, `+${earned}`, '#22c55e');
+                createExplosionStars(e.clientX, e.clientY, '#fbbf24');
+            }
+
+            // 切換成敲暈狀態圖
+            if (hole.type !== 'bomb') {
+                moleElem.innerHTML = DIZZY_MOLE_SVG;
+            }
+
+            // 連擊提示特效
+            if (combo >= 2) {
+                showComboFloat(e.clientX, e.clientY, combo);
+            }
+
+            updateStatsUI();
+
+            // 0.28秒後縮回洞中
+            setTimeout(() => {
+                moleElem.classList.remove('up', 'hit');
+                hole.status = 'empty';
+            }, 280);
+        }
+
+        /* ==============================================================
+           5. 視覺回饋效果 (漂浮文字、星星、槌子)
+           ============================================================== */
+        // 浮動得分文字
+        function showFloatingText(x, y, text, color) {
+            const el = document.createElement('div');
+            el.className = 'floating-score text-2xl font-black';
+            el.style.left = `${x - 20}px`;
+            el.style.top = `${y - 30}px`;
+            el.style.color = color;
+            el.textContent = text;
+            document.body.appendChild(el);
+
+            setTimeout(() => el.remove(), 850);
+        }
+
+        // 連擊提示文字
+        function showComboFloat(x, y, count) {
+            const el = document.createElement('div');
+            el.className = 'floating-score text-sm font-black text-amber-300';
+            el.style.left = `${x - 15}px`;
+            el.style.top = `${y + 12}px`;
+            el.textContent = `Combo ×${count}!`;
+            document.body.appendChild(el);
+
+            setTimeout(() => el.remove(), 700);
+        }
+
+        // 槌子打擊落下動效
+        function showHammerEffect(x, y) {
+            const hammer = document.createElement('div');
+            hammer.className = 'hammer-fx';
+            hammer.style.left = `${x - 30}px`;
+            hammer.style.top = `${y - 50}px`;
+            hammer.innerHTML = `
+                <svg viewBox="0 0 60 60" class="w-full h-full drop-shadow-lg">
+                    <g transform="rotate(30 30 30)">
+                        <rect x="26" y="22" width="8" height="35" rx="4" fill="#92400e" stroke="#451a03" stroke-width="2"/>
+                        <rect x="10" y="8" width="40" height="20" rx="6" fill="#dc2626" stroke="#7f1d1d" stroke-width="3"/>
+                        <rect x="14" y="12" width="8" height="12" rx="2" fill="#fca5a5" opacity="0.8"/>
+                    </g>
+                </svg>
+            `;
+            document.body.appendChild(hammer);
+            setTimeout(() => hammer.remove(), 300);
+        }
+
+        // 擊中飛散星星
+        function createExplosionStars(x, y, color) {
+            const count = 6;
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-particle';
+                star.style.left = `${x - 10}px`;
+                star.style.top = `${y - 10}px`;
+
+                const angle = (Math.PI * 2 / count) * i;
+                const distance = 35 + Math.random() * 25;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+
+                star.style.setProperty('--tx', `${tx}px`);
+                star.style.setProperty('--ty', `${ty}px`);
+
+                star.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="${color}">
+                        <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9"/>
+                    </svg>
+                `;
+                document.body.appendChild(star);
+                setTimeout(() => star.remove(), 550);
+            }
+        }
+
+        /* ==============================================================
+           6. 地鼠出現調度機制 (Spawning Loop)
+           ============================================================== */
+        function spawnMole() {
+            if (!isPlaying || isPaused) return;
+
+            const diff = DIFFICULTY_SETTINGS[diffSelect.value];
+
+            // 檢查目前已有幾隻地鼠立起
+            const activeMoles = holesState.filter(h => h.status === 'up').length;
+
+            if (activeMoles < diff.maxSimultaneous) {
+                // 找出目前所有空閒的洞
+                const availableIndices = [];
+                holesState.forEach((h, idx) => {
+                    if (h.status === 'empty') availableIndices.push(idx);
+                });
+
+                if (availableIndices.length > 0) {
+                    const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+                    activateMole(randomIndex, diff);
+                }
+            }
+
+            // 安排下一次隨機生成間隔
+            const nextInterval = Math.random() * (diff.spawnIntervalMax - diff.spawnIntervalMin) + diff.spawnIntervalMin;
+            moleSpawnTimeout = setTimeout(spawnMole, nextInterval);
+        }
+
+        function activateMole(index, diff) {
+            const hole = holesState[index];
+            hole.status = 'up';
+
+            // 決定出現類型：普通、金地鼠、炸彈
+            const roll = Math.random();
+            let type = 'normal';
+            let svgContent = NORMAL_MOLE_SVG;
+
+            if (roll < diff.bombChance) {
+                type = 'bomb';
+                svgContent = BOMB_MOLE_SVG;
+            } else if (roll < diff.bombChance + diff.goldChance) {
+                type = 'gold';
+                svgContent = GOLD_MOLE_SVG;
+            }
+
+            hole.type = type;
+
+            const moleElem = document.getElementById(`mole-${index}`);
+            moleElem.innerHTML = svgContent;
+            moleElem.classList.remove('hit');
+            moleElem.classList.add('up');
+
+            // 播放出現音
+            if (type !== 'bomb') {
+                sound.playPop();
+            }
+
+            // 設定在洞口停留時間
+            const stayTime = Math.random() * (diff.stayMax - diff.stayMin) + diff.stayMin;
+
+            hole.hideTimeout = setTimeout(() => {
+                if (hole.status === 'up') {
+                    moleElem.classList.remove('up');
+                    hole.status = 'empty';
+                }
+            }, stayTime);
+        }
+
+        /* ==============================================================
+           7. 遊戲主流程控制 (開始、暫停、倒數、結算、重置)
+           ============================================================== */
+        function startGame() {
+            sound.init(); // 觸發使用者手勢啟用 AudioContext
+            
+            // 重置數值
+            score = 0;
+            combo = 0;
+            maxCombo = 0;
+            totalSwings = 0;
+            totalHits = 0;
+            selectedDuration = parseInt(timeSelect.value, 10);
+            timeLeft = selectedDuration;
+
+            isPlaying = true;
+            isPaused = false;
+
+            // 介面按鈕狀態
+            startBtn.disabled = true;
+            startBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            pauseBtn.disabled = false;
+            timeSelect.disabled = true;
+            diffSelect.disabled = true;
+
+            updateStatsUI();
+            resetAllMoles();
+
+            // 倒數計時器
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (!isPaused) {
+                    timeLeft--;
+                    updateStatsUI();
+
+                    if (timeLeft <= 0) {
+                        endGame();
+                    }
+                }
+            }, 1000);
+
+            // 開始生成地鼠
+            clearTimeout(moleSpawnTimeout);
+            spawnMole();
+
+            showToast("🎮 遊戲開始！全力敲擊地鼠吧！");
+        }
+
+        function togglePause() {
+            if (!isPlaying) return;
+
+            isPaused = !isPaused;
+            if (isPaused) {
+                pauseBtn.innerHTML = "▶️ 繼續";
+                pauseBtn.classList.remove('from-amber-400', 'to-amber-600');
+                pauseBtn.classList.add('from-emerald-400', 'to-emerald-600');
+                showToast("⏸️ 遊戲已暫停");
+            } else {
+                pauseBtn.innerHTML = "⏸️ 暫停";
+                pauseBtn.classList.remove('from-emerald-400', 'to-emerald-600');
+                pauseBtn.classList.add('from-amber-400', 'to-amber-600');
+                showToast("▶️ 遊戲繼續！");
+                spawnMole();
+            }
+        }
+
+        function endGame() {
+            isPlaying = false;
+            clearInterval(timerInterval);
+            clearTimeout(moleSpawnTimeout);
+            resetAllMoles();
+
+            // 更新歷史最高紀錄
+            const best = getBestScore();
+            if (score > best) {
+                localStorage.setItem('whack_mole_best_score', score);
+                updateBestScoreDisplay();
+                sound.playWin();
+            }
+
+            // 彈出結算視窗
+            showResultModal();
+
+            // 恢復控制狀態
+            startBtn.disabled = false;
+            startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            pauseBtn.disabled = true;
+            pauseBtn.innerHTML = "⏸️ 暫停";
+            timeSelect.disabled = false;
+            diffSelect.disabled = false;
+        }
+
+        function resetGame() {
+            isPlaying = false;
+            isPaused = false;
+            clearInterval(timerInterval);
+            clearTimeout(moleSpawnTimeout);
+
+            score = 0;
+            combo = 0;
+            maxCombo = 0;
+            totalSwings = 0;
+            totalHits = 0;
+            selectedDuration = parseInt(timeSelect.value, 10);
+            timeLeft = selectedDuration;
+
+            startBtn.disabled = false;
+            startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            pauseBtn.disabled = true;
+            pauseBtn.innerHTML = "⏸️ 暫停";
+            timeSelect.disabled = false;
+            diffSelect.disabled = false;
+
+            resetAllMoles();
+            updateStatsUI();
+            resultModal.classList.add('hidden');
+            showToast("🔄 遊戲已重設");
+        }
+
+        function resetAllMoles() {
+            holesState.forEach((hole, idx) => {
+                clearTimeout(hole.hideTimeout);
+                hole.status = 'empty';
+                const el = document.getElementById(`mole-${idx}`);
+                if (el) {
+                    el.classList.remove('up', 'hit');
+                }
+            });
+        }
+
+        function updateStatsUI() {
+            currentScoreEl.textContent = score;
+            timeLeftDisplay.textContent = `${timeLeft}s`;
+            comboDisplay.textContent = combo;
+
+            const accuracy = totalSwings > 0 ? Math.round((totalHits / totalSwings) * 100) : 100;
+            accuracyText.textContent = `${accuracy}%`;
+
+            if (timeLeft <= 10 && isPlaying) {
+                timeLeftDisplay.parentElement.classList.add('animate-pulse');
+            } else {
+                timeLeftDisplay.parentElement.classList.remove('animate-pulse');
+            }
+        }
+
+        function getBestScore() {
+            return parseInt(localStorage.getItem('whack_mole_best_score') || '0', 10);
+        }
+
+        function updateBestScoreDisplay() {
+            bestScoreText.textContent = getBestScore();
+        }
+
+        function showResultModal() {
+            const accuracy = totalSwings > 0 ? Math.round((totalHits / totalSwings) * 100) : 100;
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('finalMaxCombo').textContent = `${maxCombo} 次連擊`;
+            document.getElementById('finalHitsInfo').textContent = `${totalHits} / ${totalSwings}`;
+            document.getElementById('finalAccuracy').textContent = `${accuracy}%`;
+
+            const emojiEl = document.getElementById('modalEmoji');
+            const titleEl = document.getElementById('modalTitle');
+
+            if (score >= 3000) {
+                emojiEl.textContent = "👑";
+                titleEl.textContent = "太神啦！地鼠終結者！";
+            } else if (score >= 1500) {
+                emojiEl.textContent = "🎉";
+                titleEl.textContent = "幹得好！反應非常敏捷！";
+            } else {
+                emojiEl.textContent = "🐹";
+                titleEl.textContent = "再接再厲！下盤會更好！";
+            }
+
+            resultModal.classList.remove('hidden');
+        }
+
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.remove('opacity-0', '-translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', '-translate-y-4');
+            }, 2000);
+        }
+
+        /* ==============================================================
+           8. 事件監聽掛載
+           ============================================================== */
+        startBtn.addEventListener('click', startGame);
+        pauseBtn.addEventListener('click', togglePause);
+        resetBtn.addEventListener('click', resetGame);
+        modalPlayAgainBtn.addEventListener('click', () => {
+            resultModal.classList.add('hidden');
+            startGame();
+        });
+
+        // 下拉選單改動連動更新預設時間
+        timeSelect.addEventListener('change', () => {
+            if (!isPlaying) {
+                timeLeft = parseInt(timeSelect.value, 10);
+                timeLeftDisplay.textContent = `${timeLeft}s`;
+            }
+        });
+
+        // 音效開關切換
+        soundToggleBtn.addEventListener('click', () => {
+            sound.muted = !sound.muted;
+            if (sound.muted) {
+                soundIcon.textContent = "🔇";
+                soundText.textContent = "靜音中";
+                soundToggleBtn.classList.remove('bg-amber-100', 'text-amber-900');
+                soundToggleBtn.classList.add('bg-slate-300', 'text-slate-600');
+            } else {
+                sound.init();
+                soundIcon.textContent = "🔊";
+                soundText.textContent = "音效開";
+                soundToggleBtn.classList.add('bg-amber-100', 'text-amber-900');
+                soundToggleBtn.classList.remove('bg-slate-300', 'text-slate-600');
+            }
+        });
+
+        // 初始化棋盤
+        window.onload = () => {
+            initBoard();
+        };
+    </script>
+</body>
+</html>
